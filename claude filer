@@ -1,0 +1,2587 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rubik's Cube — Lösningsguide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-brand">
+      <span class="brand-icon">⬛</span>
+      <span>KUBGUIDE</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Hem</a></li>
+      <li><a href="pages/3x3.html">3×3</a></li>
+      <li><a href="pages/2x2.html">2×2</a></li>
+      <li><a href="pages/notation.html">Notation</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Meny">☰</button>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-bg">
+      <div class="cube-grid">
+        <div class="mini-cube" style="--r:0;--c:0;--col:#e63946"></div>
+        <div class="mini-cube" style="--r:0;--c:1;--col:#f4a261"></div>
+        <div class="mini-cube" style="--r:0;--c:2;--col:#2a9d8f"></div>
+        <div class="mini-cube" style="--r:1;--c:0;--col:#457b9d"></div>
+        <div class="mini-cube" style="--r:1;--c:1;--col:#e9c46a"></div>
+        <div class="mini-cube" style="--r:1;--c:2;--col:#ffffff"></div>
+        <div class="mini-cube" style="--r:2;--c:0;--col:#2a9d8f"></div>
+        <div class="mini-cube" style="--r:2;--c:1;--col:#e63946"></div>
+        <div class="mini-cube" style="--r:2;--c:2;--col:#457b9d"></div>
+      </div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Lär dig lösa</p>
+      <h1 class="hero-title">RUBIK'S<br/>CUBE</h1>
+      <p class="hero-sub">Från nybörjare till avancerade metoder — steg-för-steg med interaktiva guider, notationer och 3D-visualiseringar.</p>
+      <div class="hero-cta">
+        <a href="pages/3x3.html" class="btn btn-primary">Börja med 3×3</a>
+        <a href="pages/2x2.html" class="btn btn-secondary">2×2 Pocket Cube</a>
+      </div>
+    </div>
+    <div class="hero-cube-wrap">
+      <canvas id="heroCube" width="340" height="340"></canvas>
+    </div>
+  </header>
+
+  <section class="methods">
+    <div class="container">
+      <h2 class="section-title">Välj din metod</h2>
+      <div class="method-grid">
+        <a href="pages/3x3.html#beginner" class="method-card">
+          <div class="method-badge">3×3</div>
+          <h3>Nybörjarmetoden</h3>
+          <p>7 enkla steg med lager-för-lager. Perfekt att börja med — inga algoritmer att memorera i förväg.</p>
+          <div class="method-meta">
+            <span>7 steg</span>
+            <span>~5 min att lära</span>
+          </div>
+          <span class="method-arrow">→</span>
+        </a>
+        <a href="pages/3x3.html#cfop" class="method-card method-card--accent">
+          <div class="method-badge">3×3</div>
+          <h3>CFOP / Fridrich</h3>
+          <p>Cross, F2L, OLL, PLL — den vanligaste speedcubing-metoden. Lär dig F2L och reducera drag drastiskt.</p>
+          <div class="method-meta">
+            <span>4 faser</span>
+            <span>Avancerad</span>
+          </div>
+          <span class="method-arrow">→</span>
+        </a>
+        <a href="pages/2x2.html#beginner" class="method-card">
+          <div class="method-badge">2×2</div>
+          <h3>2×2 Nybörjare</h3>
+          <p>Lös 2×2 Pocket Cube med en modifierad version av nybörjarmetoden. Snabbt lärdt!</p>
+          <div class="method-meta">
+            <span>4 steg</span>
+            <span>Enkelt</span>
+          </div>
+          <span class="method-arrow">→</span>
+        </a>
+        <a href="pages/2x2.html#oll" class="method-card method-card--accent">
+          <div class="method-badge">2×2</div>
+          <h3>OLL + PBL</h3>
+          <p>Avancerad 2×2-metod: Orientation of Last Layer och Permutation of Both Layers.</p>
+          <div class="method-meta">
+            <span>Speedcubing</span>
+            <span>Avancerad</span>
+          </div>
+          <span class="method-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="notation-preview">
+    <div class="container">
+      <div class="notation-intro">
+        <h2>Förstå notationen</h2>
+        <p>Alla drag beskrivs med en standardiserad notation. När du kan läsa notation kan du följa vilken algoritm som helst.</p>
+        <a href="pages/notation.html" class="btn btn-outline">Se alla notationer</a>
+      </div>
+      <div class="notation-grid">
+        <div class="notation-pill"><span class="move-letter">R</span><span>Höger sida medsols</span></div>
+        <div class="notation-pill"><span class="move-letter">R'</span><span>Höger sida motsols</span></div>
+        <div class="notation-pill"><span class="move-letter">U</span><span>Övre lager medsols</span></div>
+        <div class="notation-pill"><span class="move-letter">F</span><span>Framsida medsols</span></div>
+        <div class="notation-pill"><span class="move-letter">L</span><span>Vänster medsols</span></div>
+        <div class="notation-pill"><span class="move-letter">B</span><span>Baksida medsols</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>KUBGUIDE &copy; 2025 — Interaktiva Rubik's Cube-guider</p>
+      <nav>
+        <a href="index.html">Hem</a>
+        <a href="pages/3x3.html">3×3</a>
+        <a href="pages/2x2.html">2×2</a>
+        <a href="pages/notation.html">Notation</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/cube3d.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3×3 Guide — KUBGUIDE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="brand-icon">⬛</span>
+    <span>KUBGUIDE</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Hem</a></li>
+    <li><a href="3x3.html" class="active">3×3</a></li>
+    <li><a href="2x2.html">2×2</a></li>
+    <li><a href="notation.html">Notation</a></li>
+  </ul>
+  <button class="nav-toggle">☰</button>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="page-label">Guide</span>
+    <h1 class="page-title">3×3 KUBEN</h1>
+    <p class="page-desc">Lär dig lösa standard Rubik's Cube med nybörjarmetoden (lager-för-lager) eller avancerad CFOP/Fridrich-metoden.</p>
+    <div class="hero-cta" style="margin-top:1.5rem">
+      <a href="#beginner" class="btn btn-primary">Nybörjarmetoden</a>
+      <a href="#cfop" class="btn btn-secondary">CFOP / Avancerad</a>
+    </div>
+  </div>
+</header>
+
+<div class="guide-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Nybörjare</div>
+      <ul class="sidebar-nav">
+        <li><a href="#beginner">Introduktion</a></li>
+        <li><a href="#step1">Steg 1 — Korset</a></li>
+        <li><a href="#step2">Steg 2 — Vita hörnen</a></li>
+        <li><a href="#step3">Steg 3 — Mellanlagret</a></li>
+        <li><a href="#step4">Steg 4 — Gult kors</a></li>
+        <li><a href="#step5">Steg 5 — Gula hörnen</a></li>
+        <li><a href="#step6">Steg 6 — Orientera hörnen</a></li>
+        <li><a href="#step7">Steg 7 — Sista lagret</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Avancerat</div>
+      <ul class="sidebar-nav">
+        <li><a href="#cfop">CFOP Översikt</a></li>
+        <li><a href="#f2l">F2L</a></li>
+        <li><a href="#oll3x3">OLL</a></li>
+        <li><a href="#pll">PLL</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="guide-content">
+
+    <!-- ===== BEGINNER METHOD ===== -->
+    <section class="step-section" id="beginner">
+      <h2 class="section-title">NYBÖRJARMETODEN</h2>
+      <p class="step-desc">Lager-för-lager (LBL) är den enklaste metoden att lära sig. Vi löser kuben uppifrån och ner: vit topp, mellanlager, gul botten. Det krävs bara några få algoritmer.</p>
+      <div class="cube-canvas-wrap">
+        <canvas id="cube3x3Intro" width="300" height="300"></canvas>
+        <p class="canvas-hint">Dra för att rotera</p>
+      </div>
+    </section>
+
+    <section class="step-section" id="step1">
+      <h2><span class="step-number">01</span> VITA KORSET</h2>
+      <p class="step-desc">Börja med att lösa ett vitt kors på toppen. Hitta de fyra vita kantpjäserna och placera dem korrekt — varje arm ska matcha sidocentrumets färg.</p>
+
+      <div class="step-card">
+        <h3>Mål</h3>
+        <p>Skapa ett vitt kors på U-sidan (toppen) där varje kantpjäs matchar sin respektive sidofärg.</p>
+        <div>
+          <div class="face-diagram face-3x3">
+            <div class="face-cell fc-X"></div><div class="face-cell fc-W"></div><div class="face-cell fc-X"></div>
+            <div class="face-cell fc-W"></div><div class="face-cell fc-W"></div><div class="face-cell fc-W"></div>
+            <div class="face-cell fc-X"></div><div class="face-cell fc-W"></div><div class="face-cell fc-X"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <h3>Tips</h3>
+        <p>Det vita korset löses intuitivt — inga fasta algoritmer krävs. Försök föreställa dig var pjäsen ska och vänd den dit. Tänk på dessa steg:</p>
+        <ol style="padding-left:1.5rem;color:var(--muted);font-size:.9rem;line-height:2">
+          <li>Hitta en vit kantpjäs</li>
+          <li>Identifiera vilken sida den tillhör</li>
+          <li>Flytta den till korrekt position utan att förstöra befintligt kors</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="step-section" id="step2">
+      <h2><span class="step-number">02</span> VITA HÖRNEN</h2>
+      <p class="step-desc">Placera de fyra vita hörnpjäserna för att fullborda det vita lagret. Varje hörn ska ha rätt färger på alla tre sidor.</p>
+
+      <div class="step-card">
+        <h3>Algoritm — Höger insättning</h3>
+        <p>Håll kuben med vit sida upp. Hitta ett vitt hörn i nedre lagret och placera det under sin rätta position, sedan kör:</p>
+        <div class="algo-block">
+          <div class="algo-label">Höger insättning</div>
+          <div class="algo-moves" data-algo="R U R' U'"></div>
+        </div>
+        <p>Upprepa tills hörnet sitter på plats (1–5 gånger).</p>
+      </div>
+
+      <div class="step-card">
+        <h3>Om hörnet sitter felvänt</h3>
+        <p>Är hörnet redan uppe men felvänt? Kör detta för att skicka ner det och sedan sätta in det korrekt:</p>
+        <div class="algo-block">
+          <div class="algo-label">Flytta ut felvänt hörn</div>
+          <div class="algo-moves" data-algo="R U R' U' R U R' U' R U R'"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="step3">
+      <h2><span class="step-number">03</span> MELLANLAGRET</h2>
+      <p class="step-desc">Sätt in de fyra kantpjäserna i mellanlager (F2-lagret). Vrid kuben upp-och-ned så att gul sida är upp.</p>
+
+      <div class="step-card">
+        <h3>Algoritm — Sätt in till höger</h3>
+        <p>Matcha kantpjäsens framsida med centrum, titta åt höger — kör:</p>
+        <div class="algo-block">
+          <div class="algo-label">Till höger: U R U' R' U' F' U F</div>
+          <div class="algo-moves" data-algo="U R U' R' U' F' U F"></div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <h3>Algoritm — Sätt in till vänster</h3>
+        <p>Matcha kantpjäsens framsida med centrum, titta åt vänster — kör:</p>
+        <div class="algo-block">
+          <div class="algo-label">Till vänster: U' L' U L U F U' F'</div>
+          <div class="algo-moves" data-algo="U' L' U L U F U' F'"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="step4">
+      <h2><span class="step-number">04</span> GULT KORS</h2>
+      <p class="step-desc">Skapa ett gult kors på den övre sidan. Du behöver inte bry dig om hörnen ännu.</p>
+
+      <div class="step-card">
+        <h3>Algoritm — Kors på gult lager</h3>
+        <p>Kör denna algoritm 1–3 gånger tills ett gult kors syns:</p>
+        <div class="algo-block">
+          <div class="algo-label">OLL Kors</div>
+          <div class="algo-moves" data-algo="F R U R' U' F'"></div>
+        </div>
+        <p>Om du har en L-form (2 kanter), orientera så att de pekar vänster och bort. Har du en linje, rikta den horisontellt och kör en gång till.</p>
+        <table style="margin-top:1rem;width:100%;font-size:.8rem;color:var(--muted)">
+          <tr><td style="padding:.4rem .8rem .4rem 0">Ingen gul kant → kör 2–3 gånger</td></tr>
+          <tr><td style="padding:.4rem .8rem">L-form → orientera, kör 2 gånger</td></tr>
+          <tr><td style="padding:.4rem .8rem">Rak linje → kör 1 gång</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="step-section" id="step5">
+      <h2><span class="step-number">05</span> GULA KANTER</h2>
+      <p class="step-desc">Orientera de gula kanterna så att varje kant matchar sidocentrumets färg.</p>
+
+      <div class="step-card">
+        <h3>Algoritm — Rotera kanter</h3>
+        <p>Hitta en kant som matchar sin sidofärg och håll den mot dig. Kör sedan:</p>
+        <div class="algo-block">
+          <div class="algo-label">Kantpermutation</div>
+          <div class="algo-moves" data-algo="R U R' U R U2 R' U"></div>
+        </div>
+        <p>Detta roterar tre av de fyra övre kanterna moturs. Kör tills alla kanter sitter rätt.</p>
+      </div>
+    </section>
+
+    <section class="step-section" id="step6">
+      <h2><span class="step-number">06</span> GULA HÖRNEN — PLACERING</h2>
+      <p class="step-desc">Placera de gula hörnpjäserna på rätt platser (de behöver inte vara korrekt orienterade ännu).</p>
+
+      <div class="step-card">
+        <h3>Algoritm — Permuterar hörn</h3>
+        <p>Hitta ett hörn som sitter på rätt position och håll det i FR-U-hörnet. Kör:</p>
+        <div class="algo-block">
+          <div class="algo-label">Hörn permutation</div>
+          <div class="algo-moves" data-algo="U R U' L' U R' U' L"></div>
+        </div>
+        <p>Kör tills alla fyra hörn är på rätt platser (inte nödvändigtvis rätt orientering).</p>
+      </div>
+    </section>
+
+    <section class="step-section" id="step7">
+      <h2><span class="step-number">07</span> SISTA LAGRET — ORIENTERA HÖRNEN</h2>
+      <p class="step-desc">Orientera de sista hörnpjäserna. OBS: Under detta steg verkar kuben förstöras — det är normalt!</p>
+
+      <div class="step-card">
+        <h3>Algoritm — Twista hörn</h3>
+        <p>Håll kuben med gul sida upp. Välj ett hörn som är felvänt och kör:</p>
+        <div class="algo-block">
+          <div class="algo-label">Orientera hörn (medsols)</div>
+          <div class="algo-moves" data-algo="R' D' R D"></div>
+        </div>
+        <p>Kör tills det valda hörnet är korrekt (2 eller 4 gånger). Flytta sedan U-lagret för nästa felvänt hörn med <code style="color:var(--accent);font-family:var(--font-mono)">U</code> eller <code style="color:var(--accent);font-family:var(--font-mono)">U'</code> och upprepa. <strong>Rör aldrig U-lagret under en hörn-sekvens!</strong></p>
+      </div>
+
+      <div class="step-card" style="border-color:var(--accent)">
+        <h3>🎉 Grattis!</h3>
+        <p>Om du följde alla stegen har du nu löst en Rubik's Cube! Nu är det dags att börja träna på att förbättra dina tider — eller lära sig CFOP-metoden nedan.</p>
+      </div>
+    </section>
+
+    <!-- ===== CFOP ===== -->
+    <section class="step-section" id="cfop">
+      <h2 class="section-title">CFOP — AVANCERAD</h2>
+      <p class="step-desc">CFOP (Cross, F2L, OLL, PLL) är världens vanligaste speedcubing-metod. Med full CFOP kan man lösa kuben på under 10 sekunder!</p>
+
+      <div class="step-card">
+        <h3>De fyra faserna</h3>
+        <div style="display:grid;gap:.5rem;margin-top:.5rem">
+          <div style="display:flex;gap:1rem;align-items:center;padding:.75rem;background:var(--bg);border:1px solid var(--border)">
+            <span style="font-family:var(--font-mono);color:var(--accent);font-size:1.1rem;font-weight:700;min-width:2.5rem">C</span>
+            <div><strong>Cross</strong> — Lösa ett kors på bottenlagret (vit)</div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:center;padding:.75rem;background:var(--bg);border:1px solid var(--border)">
+            <span style="font-family:var(--font-mono);color:var(--orange);font-size:1.1rem;font-weight:700;min-width:2.5rem">F2L</span>
+            <div><strong>First Two Layers</strong> — Lösa de två nedre lagren simultant</div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:center;padding:.75rem;background:var(--bg);border:1px solid var(--border)">
+            <span style="font-family:var(--font-mono);color:var(--green);font-size:1.1rem;font-weight:700;min-width:2.5rem">OLL</span>
+            <div><strong>Orientation of Last Layer</strong> — Orientera alla 9 stickor (57 fall)</div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:center;padding:.75rem;background:var(--bg);border:1px solid var(--border)">
+            <span style="font-family:var(--font-mono);color:var(--blue);font-size:1.1rem;font-weight:700;min-width:2.5rem">PLL</span>
+            <div><strong>Permutation of Last Layer</strong> — Permuterar de sista 8 pjäserna (21 fall)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="f2l">
+      <h2><span class="step-number">F2L</span> FIRST TWO LAYERS</h2>
+      <p class="step-desc">I F2L löser du hörn och kant i mellanlagret simultant — detta sparar många drag jämfört med nybörjarmetoden.</p>
+
+      <div class="step-card">
+        <h3>Grundläggande F2L — Hörn + kant ovan</h3>
+        <p>Håll hörnpjäs och kantpjäs ovanpå kuben. Sätt in dem ihop till höger:</p>
+        <div class="algo-block">
+          <div class="algo-label">F2L Insert — Höger</div>
+          <div class="algo-moves" data-algo="U R U' R'"></div>
+        </div>
+        <div class="algo-block">
+          <div class="algo-label">F2L Insert — Vänster</div>
+          <div class="algo-moves" data-algo="U' L' U L"></div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <h3>F2L med delad kant och hörn</h3>
+        <p>Hörnet sitter nere (felvänt), kanten är uppe:</p>
+        <div class="algo-block">
+          <div class="algo-label">Hörn nere, kant uppe</div>
+          <div class="algo-moves" data-algo="R U' R' d R' U2 R U2 R' U R"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="oll3x3">
+      <h2><span class="step-number">OLL</span> ORIENTATION OF LAST LAYER</h2>
+      <p class="step-desc">OLL orienterar alla 9 stickor på toppen med gul sida upp. Det finns 57 olika fall. Börja med de vanligaste!</p>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-group="oll3" data-tab="common">Vanligaste</button>
+        <button class="tab-btn" data-group="oll3" data-tab="cross">Kors-fall</button>
+        <button class="tab-btn" data-group="oll3" data-tab="line">Linje-fall</button>
+      </div>
+
+      <div class="tab-panel active" data-group="oll3" data-tab="common">
+        <div class="case-grid">
+          <div class="case-card">
+            <div class="case-name">OLL 21 — Sune</div>
+            <div class="case-algo" data-algo="R U R' U R U2 R'"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 22 — Anti-Sune</div>
+            <div class="case-algo" data-algo="R U2 R' U' R U' R'"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 57 — Diagonal</div>
+            <div class="case-algo" data-algo="R U R' U' M' U R U' r'"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 29 — Squeezy</div>
+            <div class="case-algo" data-algo="R U R' U' R U' R' F' U' F R U R'"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 51 — Gun</div>
+            <div class="case-algo" data-algo="F U R U' R' U R U' R' F'"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 53 — Frying Pan</div>
+            <div class="case-algo" data-algo="r' U' R U' R' U R U' R' U2 r"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-group="oll3" data-tab="cross">
+        <div class="case-grid">
+          <div class="case-card">
+            <div class="case-name">OLL 23 — Kors</div>
+            <div class="case-algo" data-algo="R2 D' R U2 R' D R U2 R"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 24 — Cross L</div>
+            <div class="case-algo" data-algo="r U R' U' r' F R F'"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 25 — Cross Anti</div>
+            <div class="case-algo" data-algo="F' r U R' U' r' F R"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 26 — Blinkar</div>
+            <div class="case-algo" data-algo="R U2 R' U' R U R' U' R U' R'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-group="oll3" data-tab="line">
+        <div class="case-grid">
+          <div class="case-card">
+            <div class="case-name">OLL 45 — T-form</div>
+            <div class="case-algo" data-algo="F R U R' U' F'"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 46 — Baklänges T</div>
+            <div class="case-algo" data-algo="F' U' L' U L F"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 47 — Fish</div>
+            <div class="case-algo" data-algo="F R' F' R U R U' R'"></div>
+          </div>
+          <div class="case-card">
+            <div class="case-name">OLL 48 — Anti-Fish</div>
+            <div class="case-algo" data-algo="R U R' U' R' F R F'"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="pll">
+      <h2><span class="step-number">PLL</span> PERMUTATION OF LAST LAYER</h2>
+      <p class="step-desc">PLL permuterar de 8 kvarvarande pjäserna med gula sidan klar. Det finns 21 PLL-fall — börja med de vanligaste!</p>
+
+      <div class="case-grid">
+        <div class="case-card">
+          <div class="case-name">T-perm</div>
+          <div class="case-algo" data-algo="R U R' U' R' F R2 U' R' U' R U R' F'"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">Y-perm</div>
+          <div class="case-algo" data-algo="F R U' R' U' R U R' F' R U R' U' R' F R F'"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">U-perm (a)</div>
+          <div class="case-algo" data-algo="R U' R U R U R U' R' U' R2"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">U-perm (b)</div>
+          <div class="case-algo" data-algo="R2 U R U R' U' R' U' R' U R'"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">J-perm (a)</div>
+          <div class="case-algo" data-algo="R' U L' U2 R U' R' U2 R L U'"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">J-perm (b)</div>
+          <div class="case-algo" data-algo="R U R' F' R U R' U' R' F R2 U' R'"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">A-perm (a)</div>
+          <div class="case-algo" data-algo="x R' U R' D2 R U' R' D2 R2 x'"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">A-perm (b)</div>
+          <div class="case-algo" data-algo="x R2 D2 R U R' D2 R U' R x'"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">Z-perm</div>
+          <div class="case-algo" data-algo="M2 U M2 U M' U2 M2 U2 M' U2"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">H-perm</div>
+          <div class="case-algo" data-algo="M2 U M2 U2 M2 U M2"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">F-perm</div>
+          <div class="case-algo" data-algo="R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R"></div>
+        </div>
+        <div class="case-card">
+          <div class="case-name">E-perm</div>
+          <div class="case-algo" data-algo="x' R U' R' D R U R' D' R U R' D R U' R' D' x"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>KUBGUIDE &copy; 2025</p>
+    <nav>
+      <a href="../index.html">Hem</a>
+      <a href="3x3.html">3×3</a>
+      <a href="2x2.html">2×2</a>
+      <a href="notation.html">Notation</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../js/cube3d.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const c = document.getElementById('cube3x3Intro');
+    if (c) {
+      const cube = new RubiksCube3D(c, { size: 3, cellSize: 40, rotX: -0.45, rotY: 0.8 });
+      let a = 0.8;
+      const animate = () => {
+        if (!cube._drag) { a += 0.004; cube.rotY = a; cube.render(); }
+        requestAnimationFrame(animate);
+      };
+      animate();
+    }
+
+    // Render case algo text
+    document.querySelectorAll('.case-algo[data-algo]').forEach(el => {
+      el.textContent = el.dataset.algo;
+    });
+  });
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2×2 Guide — KUBGUIDE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand"><span class="brand-icon">⬛</span><span>KUBGUIDE</span></div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Hem</a></li>
+    <li><a href="3x3.html">3×3</a></li>
+    <li><a href="2x2.html" class="active">2×2</a></li>
+    <li><a href="notation.html">Notation</a></li>
+  </ul>
+  <button class="nav-toggle">☰</button>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="page-label">Guide</span>
+    <h1 class="page-title">2×2 POCKET<br/>CUBE</h1>
+    <p class="page-desc">Lär dig lösa 2×2-kuben med nybörjarmetoden eller avancerad OLL + PBL. Ingen mittenpjäs — bara åtta hörn!</p>
+    <div class="hero-cta" style="margin-top:1.5rem">
+      <a href="#beginner" class="btn btn-primary">Nybörjarmetoden</a>
+      <a href="#oll" class="btn btn-secondary">OLL + PBL</a>
+    </div>
+  </div>
+</header>
+
+<div class="guide-layout">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Nybörjare</div>
+      <ul class="sidebar-nav">
+        <li><a href="#beginner">Introduktion</a></li>
+        <li><a href="#b-step1">Steg 1 — Vita lagret</a></li>
+        <li><a href="#b-step2">Steg 2 — Gula hörnen</a></li>
+        <li><a href="#b-step3">Steg 3 — Permutation</a></li>
+        <li><a href="#b-step4">Steg 4 — Orientering</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Avancerat</div>
+      <ul class="sidebar-nav">
+        <li><a href="#oll">OLL Introduktion</a></li>
+        <li><a href="#oll-cases">OLL — Alla fall</a></li>
+        <li><a href="#pbl">PBL Introduktion</a></li>
+        <li><a href="#pbl-cases">PBL — Alla fall</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="guide-content">
+
+    <!-- ===== BEGINNER ===== -->
+    <section class="step-section" id="beginner">
+      <h2 class="section-title">NYBÖRJARMETODEN</h2>
+      <p class="step-desc">2×2-kuben har inga kanter eller mittenpjäser — bara 8 hörnpjäser. Du kan lösa den med en modifierad version av 3×3 nybörjarmetoden på 4 steg.</p>
+      <div class="cube-canvas-wrap">
+        <canvas id="cube2x2" width="280" height="280"></canvas>
+        <p class="canvas-hint">Dra för att rotera · 2×2 Pocket Cube</p>
+      </div>
+      <div class="step-card">
+        <h3>Tips innan du börjar</h3>
+        <p>Välj ett hörn som <strong>referenshörn</strong> — det är den "fasta" punkten du bygger runt. Till skillnad från 3×3 saknar 2×2 mittenpjäser, så du kan välja vilken färg som ska vara "topp".</p>
+      </div>
+    </section>
+
+    <section class="step-section" id="b-step1">
+      <h2><span class="step-number">01</span> VITA LAGRET</h2>
+      <p class="step-desc">Placera de fyra vita hörnpjäserna korrekt. Liksom 3×3 börjar vi med vit sida — men här finns inga kanter att hålla reda på!</p>
+      <div class="step-card">
+        <h3>Löses intuitivt</h3>
+        <p>Det vita lagret på 2×2 löses oftast utan algoritmer. Flytta hörnpjäserna till rätt position genom att tänka ut dragsekvenser. Vanliga trick:</p>
+        <ol style="padding-left:1.5rem;color:var(--muted);font-size:.9rem;line-height:2.2">
+          <li>Identifiera ett vitt hörn i bottenlagret</li>
+          <li>Placera det under sin målposition</li>
+          <li>Sätt in det med <code style="color:var(--accent);font-family:var(--font-mono)">R U R' U'</code> (upprepa)</li>
+        </ol>
+        <div class="algo-block">
+          <div class="algo-label">Sätt in hörn</div>
+          <div class="algo-moves" data-algo="R U R' U'"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="b-step2">
+      <h2><span class="step-number">02</span> GULA HÖRNEN — ORIENTERING</h2>
+      <p class="step-desc">Vänd kuben upp-och-ned. Nu är gul sida upp. Orientera de gula hörnpjäserna med Sune-algoritmen.</p>
+      <div class="step-card">
+        <h3>Sune — Orienterar gult lager</h3>
+        <p>Sune orienterar hörnpjäser medsols. Kör tills alla 4 hörn visar gult uppåt:</p>
+        <div class="algo-block">
+          <div class="algo-label">Sune</div>
+          <div class="algo-moves" data-algo="R U R' U R U2 R'"></div>
+        </div>
+        <p>Du kan behöva köra Sune 1–6 gånger och rotera U-lagret emellan. Lägg märke till hur många gula stickor som är uppåt och matcha mot dessa lägen:</p>
+        <table style="width:100%;font-size:.82rem;color:var(--muted);margin-top:.5rem;border-collapse:collapse">
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.5rem .8rem .5rem 0">0 gula uppåt</td>
+            <td style="padding:.5rem .8rem">Kör Sune 2 gånger</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.5rem .8rem .5rem 0">1 gult uppåt (FRU)</td>
+            <td style="padding:.5rem .8rem">Kör Sune 1 gång</td>
+          </tr>
+          <tr>
+            <td style="padding:.5rem .8rem .5rem 0">2 gula uppåt</td>
+            <td style="padding:.5rem .8rem">Orientera, kör Sune</td>
+          </tr>
+        </table>
+      </div>
+      <div class="step-card">
+        <h3>Anti-Sune — Alternativ</h3>
+        <div class="algo-block">
+          <div class="algo-label">Anti-Sune</div>
+          <div class="algo-moves" data-algo="R U2 R' U' R U' R'"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="b-step3">
+      <h2><span class="step-number">03</span> PERMUTERAR HÖRNEN</h2>
+      <p class="step-desc">Placera hörnpjäserna på rätt platser (de behöver inte vara rätt orienterade ännu).</p>
+      <div class="step-card">
+        <h3>Byt tre hörn</h3>
+        <p>Hitta ett hörn som sitter rätt (om inget gör det — kör ändå). Håll det i FRU-positionen och kör:</p>
+        <div class="algo-block">
+          <div class="algo-label">Cykla tre hörn (medsols)</div>
+          <div class="algo-moves" data-algo="U R U' L' U R' U' L"></div>
+        </div>
+        <p>Kör tills alla hörn är på rätt platser. Det kan krävas 1–3 körningar.</p>
+      </div>
+    </section>
+
+    <section class="step-section" id="b-step4">
+      <h2><span class="step-number">04</span> ORIENTERA SISTA HÖRNEN</h2>
+      <p class="step-desc">Orientera de hörn som fortfarande är felorienterade. Samma teknik som 3×3 nybörjarmetod steg 7.</p>
+      <div class="step-card">
+        <h3>Algoritm — Twista hörn</h3>
+        <p>Välj ett felvänt hörn och kör tills det är rätt orienterat. Flytta sedan U-lagret till nästa felvänt hörn och upprepa. <strong>Flytta aldrig U-lagret mitt under en sekvens!</strong></p>
+        <div class="algo-block">
+          <div class="algo-label">Orientera hörn (medsols)</div>
+          <div class="algo-moves" data-algo="R' D' R D"></div>
+        </div>
+        <p>Kör 2 gånger (medsols) eller 4 gånger (motsols) per hörn.</p>
+      </div>
+      <div class="step-card" style="border-color:var(--accent)">
+        <h3>🎉 Klart!</h3>
+        <p>Du har löst 2×2-kuben! Nu kan du lära dig OLL + PBL nedan för att dramatiskt förbättra dina tider.</p>
+      </div>
+    </section>
+
+    <!-- ===== OLL ===== -->
+    <section class="step-section" id="oll">
+      <h2 class="section-title">OLL — AVANCERAT</h2>
+      <p class="step-desc">OLL (Orientation of Last Layer) på 2×2 orienterar alla 4 hörn i ett enda steg. Det finns <strong>7 OLL-fall</strong> (exklusive det lösta fallet). Lär dig dem alla för snabbare lösning!</p>
+
+      <div class="step-card">
+        <h3>Vad är OLL på 2×2?</h3>
+        <p>Till skillnad från 3×3 har 2×2 inga kanter — vi orienterar bara de 4 hörnpjäserna. Med OLL gör du det på ett effektivare sätt än att repetera Sune gång på gång.</p>
+        <p>Håll alltid kuben med det vita lagret <strong>nere</strong> och gul sida <strong>upp</strong> under OLL.</p>
+      </div>
+    </section>
+
+    <section class="step-section" id="oll-cases">
+      <h2><span class="step-number">OLL</span> ALLA 7 FALL</h2>
+      <p class="step-desc">Varje fall representerar ett distinkt orienteringsmönster på det gula lagret. Gult = rätt orienterat hörn.</p>
+
+      <div class="case-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px,1fr))">
+
+        <div class="case-card">
+          <div class="case-name">OLL 1 — Sune</div>
+          <div style="margin:.5rem 0">
+            <div class="face-diagram face-2x2">
+              <div class="face-cell fc-X"></div><div class="face-cell fc-Y"></div>
+              <div class="face-cell fc-X"></div><div class="face-cell fc-Y"></div>
+            </div>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">1 gul uppe (FRU), 1 korrekt hörn</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="R U R' U R U2 R'"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">OLL 2 — Anti-Sune</div>
+          <div style="margin:.5rem 0">
+            <div class="face-diagram face-2x2">
+              <div class="face-cell fc-Y"></div><div class="face-cell fc-X"></div>
+              <div class="face-cell fc-Y"></div><div class="face-cell fc-X"></div>
+            </div>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">Spegelbild av Sune</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="R U2 R' U' R U' R'"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">OLL 3 — Headlights</div>
+          <div style="margin:.5rem 0">
+            <div class="face-diagram face-2x2">
+              <div class="face-cell fc-Y"></div><div class="face-cell fc-X"></div>
+              <div class="face-cell fc-Y"></div><div class="face-cell fc-X"></div>
+            </div>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">2 gula diagonalt</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="R2 U2 R U2 R2"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">OLL 4 — Bowtie</div>
+          <div style="margin:.5rem 0">
+            <div class="face-diagram face-2x2">
+              <div class="face-cell fc-X"></div><div class="face-cell fc-Y"></div>
+              <div class="face-cell fc-Y"></div><div class="face-cell fc-X"></div>
+            </div>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">2 gula diagonalt (andra diagonalen)</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="F R U R' U' F'"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">OLL 5 — Double Sune</div>
+          <div style="margin:.5rem 0">
+            <div class="face-diagram face-2x2">
+              <div class="face-cell fc-X"></div><div class="face-cell fc-X"></div>
+              <div class="face-cell fc-Y"></div><div class="face-cell fc-Y"></div>
+            </div>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">2 gula på samma sida</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="R U R' U R U2 R' U2 R U R' U R U2 R'"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">OLL 6 — Double Anti-Sune</div>
+          <div style="margin:.5rem 0">
+            <div class="face-diagram face-2x2">
+              <div class="face-cell fc-Y"></div><div class="face-cell fc-Y"></div>
+              <div class="face-cell fc-X"></div><div class="face-cell fc-X"></div>
+            </div>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">2 gula bak</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="R U2 R' U' R U R' U' R U R' U' R U' R'"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">OLL 7 — Ingen gul</div>
+          <div style="margin:.5rem 0">
+            <div class="face-diagram face-2x2">
+              <div class="face-cell fc-X"></div><div class="face-cell fc-X"></div>
+              <div class="face-cell fc-X"></div><div class="face-cell fc-X"></div>
+            </div>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">Inga gula hörn upp</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="R U R' U' R' F R F' U2 R U R' U R U2 R'"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== PBL ===== -->
+    <section class="step-section" id="pbl">
+      <h2 class="section-title">PBL — AVANCERAT</h2>
+      <p class="step-desc">PBL (Permutation of Both Layers) är den sista fasen i avancerad 2×2-lösning. Efter OLL permuterar PBL <strong>alla 8 hörn</strong> simultant — istället för att lösa ett lager i taget.</p>
+
+      <div class="step-card">
+        <h3>Vad gör PBL annorlunda?</h3>
+        <p>I nybörjarmetoden löser du vita lagret separat och jobbar sedan med gula. PBL tar hand om <em>alla</em> hörn på en gång — du behöver bara identifiera vilket PBL-fall du har och köra rätt algoritm.</p>
+        <p style="margin-top:.8rem">Det finns <strong>5 PBL-fall</strong> (inklusive det lösta fallet). Headlights-metoden används för att identifiera dem.</p>
+      </div>
+
+      <div class="step-card">
+        <h3>Identifiera ditt PBL-fall</h3>
+        <p>Titta på framsidan och högersidan. Letar efter <strong>headlights</strong> — två hörn på samma sida med samma färg:</p>
+        <ul style="padding-left:1.5rem;color:var(--muted);font-size:.9rem;line-height:2.2">
+          <li><strong>Framsidan löst, baksidan löst</strong> → Skipt-fall (U-perm)</li>
+          <li><strong>Headlights på ena sidan</strong> → A-perm</li>
+          <li><strong>Inga headlights</strong> → E-perm</li>
+          <li><strong>Allt löst</strong> → Klart!</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step-section" id="pbl-cases">
+      <h2><span class="step-number">PBL</span> ALLA FALL</h2>
+      <p class="step-desc">PBL har 5 distinkta fall (inklusive solved). Nedan visas de 4 fall som kräver en algoritm.</p>
+
+      <div class="case-grid" style="grid-template-columns: repeat(auto-fill, minmax(240px,1fr))">
+
+        <div class="case-card">
+          <div class="case-name">PBL 1 — U-perm (a)</div>
+          <p style="font-size:.78rem;color:var(--muted);margin:.4rem 0">Tre hörn roterar i övre lagret (medsols). Headlights på baksidan.</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="R U' R U R U R U' R' U' R2"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">PBL 2 — U-perm (b)</div>
+          <p style="font-size:.78rem;color:var(--muted);margin:.4rem 0">Tre hörn roterar i övre lagret (motsols). Headlights på framsidan.</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="R2 U R U R' U' R' U' R' U R'"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">PBL 3 — A-perm (a)</div>
+          <p style="font-size:.78rem;color:var(--muted);margin:.4rem 0">Diagonal swap av hörn. Headlights i ett lager.</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="x R' U R' D2 R U' R' D2 R2 x'"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">PBL 4 — A-perm (b)</div>
+          <p style="font-size:.78rem;color:var(--muted);margin:.4rem 0">Spegel av A-perm (a).</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="x R2 D2 R U R' D2 R U' R x'"></div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-name">PBL 5 — E-perm</div>
+          <p style="font-size:.78rem;color:var(--muted);margin:.4rem 0">Inga headlights — alla fyra sidor har blandade hörn.</p>
+          <div class="algo-block" style="margin:0">
+            <div class="algo-moves" data-algo="x' R U' R' D R U R' D' R U R' D R U' R' D' x"></div>
+          </div>
+        </div>
+
+        <div class="case-card" style="border-color:var(--accent)">
+          <div class="case-name">PBL 0 — Solved</div>
+          <p style="font-size:.78rem;color:var(--muted);margin:.4rem 0">Alla hörn är rätt permuterade. Ingen algoritm behövs!</p>
+          <div style="padding:.8rem;background:var(--bg);font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">
+            ✓ KLAR — Kuben löst!
+          </div>
+        </div>
+
+      </div>
+
+      <div class="step-card" style="margin-top:2rem">
+        <h3>Flöde för OLL + PBL</h3>
+        <ol style="padding-left:1.5rem;color:var(--muted);font-size:.9rem;line-height:2.2">
+          <li>Lös det vita lagret intuitivt</li>
+          <li>Identifiera OLL-fallet (0–7 gula hörn upp)</li>
+          <li>Kör rätt OLL-algoritm → gult lager orienterat</li>
+          <li>Identifiera PBL-fallet (headlights-metoden)</li>
+          <li>Kör rätt PBL-algoritm → kuben löst!</li>
+        </ol>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>KUBGUIDE &copy; 2025</p>
+    <nav>
+      <a href="../index.html">Hem</a>
+      <a href="3x3.html">3×3</a>
+      <a href="2x2.html">2×2</a>
+      <a href="notation.html">Notation</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../js/cube3d.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const c = document.getElementById('cube2x2');
+    if (c) {
+      const cube = new RubiksCube3D(c, { size: 2, cellSize: 58, rotX: -0.42, rotY: 0.8 });
+      let a = 0.8;
+      const animate = () => {
+        if (!cube._drag) { a += 0.005; cube.rotY = a; cube.render(); }
+        requestAnimationFrame(animate);
+      };
+      animate();
+    }
+    document.querySelectorAll('.case-algo[data-algo]').forEach(el => {
+      el.textContent = el.dataset.algo;
+    });
+  });
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notation — KUBGUIDE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .color-swatch {
+      display:inline-block;
+      width:1rem; height:1rem;
+      border-radius:2px;
+      vertical-align:middle;
+      margin-right:.4rem;
+    }
+    .diagram-row {
+      display:flex; gap:2rem; flex-wrap:wrap; margin:1rem 0; align-items:center;
+    }
+    .cube-label {
+      font-family: var(--font-mono);
+      font-size:.7rem;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-top:.4rem;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand"><span class="brand-icon">⬛</span><span>KUBGUIDE</span></div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Hem</a></li>
+    <li><a href="3x3.html">3×3</a></li>
+    <li><a href="2x2.html">2×2</a></li>
+    <li><a href="notation.html" class="active">Notation</a></li>
+  </ul>
+  <button class="nav-toggle">☰</button>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="page-label">Referens</span>
+    <h1 class="page-title">KUBNOTATION</h1>
+    <p class="page-desc">Standardiserad Singmaster-notation — det universella språket för att beskriva Rubik's Cube-drag. Förstår du notationen kan du följa vilken algoritm som helst i världen.</p>
+  </div>
+</header>
+
+<div class="guide-layout">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Innehåll</div>
+      <ul class="sidebar-nav">
+        <li><a href="#faces">Sidornas namn</a></li>
+        <li><a href="#basic">Basdrag</a></li>
+        <li><a href="#modifiers">Modifierare</a></li>
+        <li><a href="#double">Dubbeldrag</a></li>
+        <li><a href="#wide">Wide-drag (Rw)</a></li>
+        <li><a href="#slices">Skivdrag (M, S, E)</a></li>
+        <li><a href="#rotations">Kubrotationer</a></li>
+        <li><a href="#colors">Färger</a></li>
+        <li><a href="#tips">Lästips</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="guide-content">
+
+    <section class="step-section" id="faces">
+      <h2 class="section-title">SIDORNAS NAMN</h2>
+      <p class="step-desc">Varje sida på kuben har ett engelskt namn och en bokstav. Håll kuben med vit sida upp och en sida mot dig.</p>
+
+      <div class="step-card">
+        <div class="diagram-row">
+          <div>
+            <canvas id="notationCube" width="240" height="240"></canvas>
+            <div class="cube-label">Referenskub</div>
+          </div>
+          <div style="flex:1;min-width:220px">
+            <table class="notation-table">
+              <thead>
+                <tr>
+                  <th>Bokstav</th>
+                  <th>Engelska</th>
+                  <th>Svenska</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="move-big">U</span></td><td>Up</td><td>Övre sidan</td></tr>
+                <tr><td><span class="move-big">D</span></td><td>Down</td><td>Nedre sidan</td></tr>
+                <tr><td><span class="move-big">F</span></td><td>Front</td><td>Framsidan</td></tr>
+                <tr><td><span class="move-big">B</span></td><td>Back</td><td>Baksidan</td></tr>
+                <tr><td><span class="move-big">R</span></td><td>Right</td><td>Högersidan</td></tr>
+                <tr><td><span class="move-big">L</span></td><td>Left</td><td>Vänstersidan</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="basic">
+      <h2 class="section-title">BASDRAG</h2>
+      <p class="step-desc">Ett ensamt bokstavsdrag roterar den sidan 90° medsols — sett inifrån kuben mot den sidan.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr>
+            <th>Drag</th>
+            <th>Riktning</th>
+            <th>Beskrivning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="move-big">R</span></td>
+            <td><span class="direction-icon">↻</span> Medsols</td>
+            <td>Höger sida roterar uppåt (medsols sett från höger)</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">L</span></td>
+            <td><span class="direction-icon">↻</span> Medsols</td>
+            <td>Vänster sida roterar neråt (medsols sett från vänster)</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">U</span></td>
+            <td><span class="direction-icon">↻</span> Medsols</td>
+            <td>Övre lager roterar till vänster (medsols sett uppifrån)</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">D</span></td>
+            <td><span class="direction-icon">↻</span> Medsols</td>
+            <td>Nedre lager roterar till höger (medsols sett nerifrån)</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">F</span></td>
+            <td><span class="direction-icon">↻</span> Medsols</td>
+            <td>Framsidan roterar medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">B</span></td>
+            <td><span class="direction-icon">↻</span> Medsols</td>
+            <td>Baksidan roterar medsols (sett bakifrån)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="step-section" id="modifiers">
+      <h2 class="section-title">MODIFIERARE</h2>
+      <p class="step-desc">Modifierare ändrar hur ett basdrag utförs.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Namn</th>
+            <th>Beskrivning</th>
+            <th>Exempel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="move-big" style="color:var(--red)">'</span></td>
+            <td>Prime / Apostrofe</td>
+            <td>Motsols — motsatt riktning mot basdrag</td>
+            <td><code style="font-family:var(--font-mono);color:var(--accent)">R' U' F'</code></td>
+          </tr>
+          <tr>
+            <td><span class="move-big" style="color:var(--blue)">2</span></td>
+            <td>Dubbel</td>
+            <td>Rotera 180° (två drag i samma riktning)</td>
+            <td><code style="font-family:var(--font-mono);color:var(--accent)">R2 U2</code></td>
+          </tr>
+          <tr>
+            <td><span class="move-big" style="color:var(--green)">w</span></td>
+            <td>Wide</td>
+            <td>Rör två lager simultant (det egna + innanförliggande)</td>
+            <td><code style="font-family:var(--font-mono);color:var(--accent)">Rw Uw</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="step-card" style="margin-top:1.5rem">
+        <h3>Kombinationer</h3>
+        <p>Modifierare kan kombineras. Exempel:</p>
+        <div class="algo-block">
+          <div class="algo-label">Vanlig sekvens med modifierare</div>
+          <div class="algo-moves" data-algo="R U R' U' R U2 R' F' U' F"></div>
+        </div>
+        <p>Läs varje drag för sig: <strong>R</strong> medsols, <strong>U</strong> medsols, <strong>R'</strong> motsols, osv.</p>
+      </div>
+    </section>
+
+    <section class="step-section" id="double">
+      <h2 class="section-title">DUBBELDRAG — 2</h2>
+      <p class="step-desc">Ett "2" efter bokstaven betyder 180° rotation. Riktningen spelar ingen roll — resultatet är detsamma.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Drag</th><th>Grader</th><th>Beskrivning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="move-big">R2</span></td><td>180°</td><td>Höger sida 180°</td></tr>
+          <tr><td><span class="move-big">U2</span></td><td>180°</td><td>Övre sida 180°</td></tr>
+          <tr><td><span class="move-big">F2</span></td><td>180°</td><td>Framsida 180°</td></tr>
+          <tr><td><span class="move-big">D2</span></td><td>180°</td><td>Nedre sida 180°</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="step-section" id="wide">
+      <h2 class="section-title">WIDE-DRAG — Rw, Uw</h2>
+      <p class="step-desc">Wide-drag (eller "lowercase") rör de yttersta <em>två</em> lagren. Används ofta i avancerade algoritmer och CFOP F2L.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Drag</th><th>Alternativ</th><th>Beskrivning</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="move-big">Rw</span></td>
+            <td><code style="font-family:var(--font-mono);color:var(--muted)">r</code></td>
+            <td>Höger sida + M-skivan (två lager) medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">Lw</span></td>
+            <td><code style="font-family:var(--font-mono);color:var(--muted)">l</code></td>
+            <td>Vänster sida + M-skivan medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">Uw</span></td>
+            <td><code style="font-family:var(--font-mono);color:var(--muted)">u</code></td>
+            <td>Övre sida + E-skivan medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">Fw</span></td>
+            <td><code style="font-family:var(--font-mono);color:var(--muted)">f</code></td>
+            <td>Framsida + S-skivan medsols</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="step-section" id="slices">
+      <h2 class="section-title">SKIVDRAG — M, S, E</h2>
+      <p class="step-desc">Skivdrag rör mellanskivorna (inte de yttersta lagren). Används i avancerade algoritmer som PLL Z-perm och H-perm.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Drag</th><th>Skiva</th><th>Riktning</th><th>Beskrivning</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="move-big">M</span></td>
+            <td>Middle</td>
+            <td>Som L</td>
+            <td>Mellanskivan parallell med L och R, rör sig som L</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">M'</span></td>
+            <td>Middle</td>
+            <td>Som R</td>
+            <td>Mellanskivan rör sig som R (motsols sett från vänster)</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">M2</span></td>
+            <td>Middle</td>
+            <td>180°</td>
+            <td>Mellanskivan 180°</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">S</span></td>
+            <td>Standing</td>
+            <td>Som F</td>
+            <td>Mellanskivan parallell med F och B, rör sig som F</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">E</span></td>
+            <td>Equatorial</td>
+            <td>Som D</td>
+            <td>Ekvatorialskivan parallell med U och D, rör sig som D</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="step-card" style="margin-top:1.5rem">
+        <h3>Exempel — Z-perm med M-drag</h3>
+        <div class="algo-block">
+          <div class="algo-label">PLL Z-perm</div>
+          <div class="algo-moves" data-algo="M2 U M2 U M' U2 M2 U2 M' U2"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="rotations">
+      <h2 class="section-title">KUBROTATIONER</h2>
+      <p class="step-desc">Kubrotationer rör hela kuben utan att ändra något. De används för att ändra perspektiv under lösning.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Symbol</th><th>Axel</th><th>Riktning</th><th>Resultat</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="move-big">x</span></td>
+            <td>R-axeln</td>
+            <td>Som R</td>
+            <td>Hela kuben roterar som ett R-drag</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">x'</span></td>
+            <td>R-axeln</td>
+            <td>Som R'</td>
+            <td>Hela kuben roterar som R' (bakåt)</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">y</span></td>
+            <td>U-axeln</td>
+            <td>Som U</td>
+            <td>Hela kuben roterar som ett U-drag</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">y'</span></td>
+            <td>U-axeln</td>
+            <td>Som U'</td>
+            <td>Hela kuben roterar som U'</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">z</span></td>
+            <td>F-axeln</td>
+            <td>Som F</td>
+            <td>Hela kuben roterar som ett F-drag</td>
+          </tr>
+          <tr>
+            <td><span class="move-big">z'</span></td>
+            <td>F-axeln</td>
+            <td>Som F'</td>
+            <td>Hela kuben roterar som F'</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="step-section" id="colors">
+      <h2 class="section-title">STANDARDFÄRGER</h2>
+      <p class="step-desc">Rubik's Cube har en standardfärgordning. Mittenpjäserna definierar varje sidas färg.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Sida</th><th>Standardfärg</th><th>Bokstav</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Up (Övre)</td>
+            <td><span class="color-swatch" style="background:#f8f9fa;border:1px solid #555"></span>Vit</td>
+            <td><code style="font-family:var(--font-mono);color:var(--accent)">W</code></td>
+          </tr>
+          <tr>
+            <td>Down (Nedre)</td>
+            <td><span class="color-swatch" style="background:#e9c46a"></span>Gul</td>
+            <td><code style="font-family:var(--font-mono);color:var(--accent)">Y</code></td>
+          </tr>
+          <tr>
+            <td>Front (Fram)</td>
+            <td><span class="color-swatch" style="background:#e63946"></span>Röd</td>
+            <td><code style="font-family:var(--font-mono);color:var(--accent)">R</code></td>
+          </tr>
+          <tr>
+            <td>Back (Bak)</td>
+            <td><span class="color-swatch" style="background:#f4a261"></span>Orange</td>
+            <td><code style="font-family:var(--font-mono);color:var(--accent)">O</code></td>
+          </tr>
+          <tr>
+            <td>Right (Höger)</td>
+            <td><span class="color-swatch" style="background:#457b9d"></span>Blå</td>
+            <td><code style="font-family:var(--font-mono);color:var(--accent)">B</code></td>
+          </tr>
+          <tr>
+            <td>Left (Vänster)</td>
+            <td><span class="color-swatch" style="background:#2a9d8f"></span>Grön</td>
+            <td><code style="font-family:var(--font-mono);color:var(--accent)">G</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="step-card" style="margin-top:1.5rem">
+        <h3>Motstående sidor</h3>
+        <p>Vit ↔ Gul, Röd ↔ Orange, Blå ↔ Grön. Dessa tre par sitter alltid mitt emot varandra på en korrekt monterad kub.</p>
+      </div>
+    </section>
+
+    <section class="step-section" id="tips">
+      <h2 class="section-title">TIPS FÖR ATT LÄSA ALGORITMER</h2>
+
+      <div class="step-card">
+        <h3>1. Läs vänster till höger</h3>
+        <p>Utför alltid drag i den ordning de skrivs — vänster till höger, ett drag i taget.</p>
+      </div>
+
+      <div class="step-card">
+        <h3>2. Orientera kuben rätt först</h3>
+        <p>Varje algoritm förutsätter en specifik orientering. Läs guidens instruktioner om hur kuben ska hållas innan du kör algoritmen.</p>
+      </div>
+
+      <div class="step-card">
+        <h3>3. Parenteser = grupper</h3>
+        <p>Parenteser används ibland för att visa återkommande grupper, t.ex. <code style="font-family:var(--font-mono);color:var(--accent)">(R U R' U') ×3</code> = kör sekvensen tre gånger.</p>
+      </div>
+
+      <div class="step-card">
+        <h3>4. Memoreringstips</h3>
+        <p>Lär dig uttala algoritmerna som "R U R-prime U-prime" — det gör dem lättare att memorera som muskelminne. Kör dem långsamt tills fingersättningen sitter, sedan snabbast möjligt.</p>
+      </div>
+
+      <div class="step-card">
+        <h3>Snabb referens</h3>
+        <div class="algo-block">
+          <div class="algo-label">Sexy move — Den vanligaste sekvensen</div>
+          <div class="algo-moves" data-algo="R U R' U'"></div>
+        </div>
+        <div class="algo-block">
+          <div class="algo-label">Sune</div>
+          <div class="algo-moves" data-algo="R U R' U R U2 R'"></div>
+        </div>
+        <div class="algo-block">
+          <div class="algo-label">T-perm</div>
+          <div class="algo-moves" data-algo="R U R' U' R' F R2 U' R' U' R U R' F'"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>KUBGUIDE &copy; 2025</p>
+    <nav>
+      <a href="../index.html">Hem</a>
+      <a href="3x3.html">3×3</a>
+      <a href="2x2.html">2×2</a>
+      <a href="notation.html">Notation</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../js/cube3d.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const c = document.getElementById('notationCube');
+    if (c) {
+      const cube = new RubiksCube3D(c, { size: 3, cellSize: 32, rotX: -0.42, rotY: 0.7 });
+      let a = 0.7;
+      const animate = () => {
+        if (!cube._drag) { a += 0.004; cube.rotY = a; cube.render(); }
+        requestAnimationFrame(animate);
+      };
+      animate();
+    }
+  });
+</script>
+</body>
+</html>
+/* ===== RESET & ROOT ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red:    #e63946;
+  --orange: #f4a261;
+  --yellow: #e9c46a;
+  --green:  #2a9d8f;
+  --blue:   #457b9d;
+  --white:  #f8f9fa;
+  --bg:     #0d0d0f;
+  --bg2:    #141416;
+  --bg3:    #1e1e22;
+  --text:   #f0ede8;
+  --muted:  #888;
+  --border: #2a2a30;
+  --accent: #e9c46a;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ===== UTILITY ===== */
+.container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  letter-spacing: 0.04em;
+  margin-bottom: 2.5rem;
+}
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; gap: 2rem;
+  padding: 1rem 2.5rem;
+  background: rgba(13,13,15,0.88);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-brand {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.brand-icon { font-size: 1.1rem; }
+
+.nav-links {
+  display: flex; gap: 0; list-style: none;
+  margin-left: auto;
+}
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--text);
+  border-color: var(--border);
+  background: var(--bg3);
+}
+
+.nav-toggle {
+  display: none;
+  background: none; border: none;
+  color: var(--text); font-size: 1.4rem;
+  cursor: pointer; margin-left: auto;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 8rem 5vw 4rem;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cube-grid {
+  position: absolute;
+  right: -10%;
+  top: 50%;
+  transform: translateY(-50%) rotate(15deg);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  opacity: 0.04;
+  width: 500px;
+  height: 500px;
+}
+
+.mini-cube {
+  background: var(--col);
+  border-radius: 4px;
+}
+
+.hero-content { z-index: 1; }
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title span { color: var(--accent); }
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 440px;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.8rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  cursor: pointer; border: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+}
+.btn-primary:hover { background: #f5d47a; transform: translateY(-2px); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--muted); background: var(--bg3); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn-outline:hover { background: var(--accent); color: var(--bg); }
+
+.hero-cube-wrap {
+  display: flex; justify-content: center; align-items: center;
+  z-index: 1;
+}
+
+#heroCube { cursor: grab; }
+#heroCube:active { cursor: grabbing; }
+
+/* ===== METHODS ===== */
+.methods {
+  padding: 6rem 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.method-card {
+  background: var(--bg2);
+  padding: 2.5rem 2rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.2s;
+  position: relative;
+  display: flex; flex-direction: column; gap: 0.8rem;
+}
+
+.method-card:hover { background: var(--bg3); }
+
+.method-card--accent { background: var(--bg3); }
+.method-card--accent:hover { background: #1e1e2a; }
+
+.method-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  background: var(--accent);
+  color: var(--bg);
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  width: fit-content;
+  font-weight: 700;
+}
+
+.method-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  letter-spacing: 0.04em;
+}
+
+.method-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.method-meta {
+  display: flex; gap: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+.method-arrow {
+  font-size: 1.4rem;
+  color: var(--accent);
+  transition: transform 0.2s;
+}
+.method-card:hover .method-arrow { transform: translateX(4px); }
+
+/* ===== NOTATION PREVIEW ===== */
+.notation-preview {
+  padding: 6rem 0;
+}
+
+.notation-preview .container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.notation-intro h2 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+.notation-intro p {
+  color: var(--muted);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.notation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.notation-pill {
+  background: var(--bg2);
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.move-letter {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 2rem;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+}
+
+.footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer p {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.footer nav { display: flex; gap: 2rem; }
+.footer nav a {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+}
+.footer nav a:hover { color: var(--accent); }
+
+/* ===== PAGE LAYOUT (shared for 3x3/2x2/notation pages) ===== */
+.page-header {
+  padding: 9rem 0 4rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+
+.page-header .container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+}
+
+.page-desc {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 560px;
+  margin-top: 1rem;
+  font-weight: 300;
+}
+
+/* ===== GUIDE LAYOUT ===== */
+.guide-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  gap: 3rem;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  padding-top: 3rem;
+  position: sticky;
+  top: 5rem;
+  height: fit-content;
+}
+
+.sidebar-section {
+  margin-bottom: 2rem;
+}
+
+.sidebar-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-nav { list-style: none; }
+.sidebar-nav li a {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.35rem 0;
+  transition: color 0.2s;
+  border-left: 2px solid transparent;
+  padding-left: 0.8rem;
+}
+.sidebar-nav li a:hover, .sidebar-nav li a.active {
+  color: var(--text);
+  border-left-color: var(--accent);
+}
+
+/* ===== STEP CARDS ===== */
+.guide-content { padding: 3rem 0 6rem; }
+
+.step-section { margin-bottom: 5rem; }
+
+.step-section h2 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.step-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 0.2rem 0.6rem;
+  font-weight: 700;
+}
+
+.step-desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  max-width: 620px;
+  line-height: 1.7;
+}
+
+.step-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.step-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.8rem;
+  color: var(--accent);
+}
+
+.step-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* ===== ALGORITHM DISPLAY ===== */
+.algo-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  font-family: var(--font-mono);
+}
+
+.algo-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.algo-moves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.move {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 700;
+  transition: all 0.15s;
+  cursor: default;
+}
+
+.move:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.move.prime { color: var(--red); }
+.move.double { color: var(--blue); }
+
+/* ===== 2D CUBE FACE ===== */
+.face-diagram {
+  display: inline-grid;
+  border: 2px solid var(--border);
+  gap: 2px;
+  background: var(--border);
+  margin: 0.5rem 0;
+}
+
+.face-diagram.face-3x3 {
+  grid-template-columns: repeat(3, 2rem);
+}
+
+.face-diagram.face-2x2 {
+  grid-template-columns: repeat(2, 2rem);
+}
+
+.face-cell {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2px;
+}
+
+.fc-W { background: #f8f9fa; }
+.fc-Y { background: var(--yellow); }
+.fc-R { background: var(--red); }
+.fc-O { background: var(--orange); }
+.fc-G { background: var(--green); }
+.fc-B { background: var(--blue); }
+.fc-X { background: var(--bg3); border: 1px dashed var(--border); }
+
+/* ===== CUBE CANVAS ===== */
+.cube-canvas-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.cube-canvas-wrap canvas { cursor: grab; }
+.cube-canvas-wrap canvas:active { cursor: grabbing; }
+
+.canvas-hint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* ===== TABS ===== */
+.tabs { display: flex; gap: 0; margin-bottom: 2rem; }
+
+.tab-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: -1px;
+}
+
+.tab-btn:first-child { margin-left: 0; }
+.tab-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); z-index: 1; }
+.tab-btn:hover:not(.active) { color: var(--text); background: var(--bg3); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ===== OLL/PBL TABLE ===== */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 1.5rem;
+}
+
+.case-card {
+  background: var(--bg2);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  transition: background 0.2s;
+}
+
+.case-card:hover { background: var(--bg3); }
+
+.case-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.case-algo {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.8;
+  word-break: break-all;
+}
+
+/* ===== NOTATION PAGE ===== */
+.notation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.notation-table th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.notation-table td {
+  padding: 0.85rem 1rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.notation-table tr:hover td { background: var(--bg2); }
+
+.move-big {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 2.5rem;
+  display: inline-block;
+}
+
+.direction-icon { font-size: 1.1rem; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 7rem;
+  }
+
+  .hero-cube-wrap { order: -1; }
+  #heroCube { width: 220px; height: 220px; }
+
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 5rem 2rem 2rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+  }
+  .nav-toggle { display: block; }
+
+  .guide-layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+
+  .notation-preview .container { grid-template-columns: 1fr; gap: 2rem; }
+
+  .case-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .method-grid { grid-template-columns: 1fr; }
+  .notation-grid { grid-template-columns: 1fr; }
+  .case-grid { grid-template-columns: 1fr; }
+}
+/**
+ * cube3d.js — Lightweight 3D Rubik's Cube renderer using Canvas 2D
+ * Isometric projection, drag-to-rotate, configurable size.
+ */
+
+class RubiksCube3D {
+  constructor(canvas, options = {}) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.size = options.size || 3; // 2 or 3
+    this.cellSize = options.cellSize || 38;
+    this.gap = options.gap || 3;
+    this.rotX = options.rotX ?? -0.5;
+    this.rotY = options.rotY ?? 0.7;
+
+    // Colors: U=white, D=yellow, F=red, B=orange, R=blue, L=green
+    this.COLORS = {
+      U: '#f8f9fa', D: '#e9c46a', F: '#e63946',
+      B: '#f4a261', R: '#457b9d', L: '#2a9d8f', X: '#1a1a1e'
+    };
+
+    // Initialize face arrays
+    this.faces = {
+      U: Array(this.size * this.size).fill('U'),
+      D: Array(this.size * this.size).fill('D'),
+      F: Array(this.size * this.size).fill('F'),
+      B: Array(this.size * this.size).fill('B'),
+      R: Array(this.size * this.size).fill('R'),
+      L: Array(this.size * this.size).fill('L'),
+    };
+
+    this._drag = false;
+    this._lastX = 0;
+    this._lastY = 0;
+    this._raf = null;
+    this._bindEvents();
+    this.render();
+  }
+
+  setFace(face, colors) {
+    this.faces[face] = colors;
+    this.render();
+  }
+
+  setAllFaces(faceMap) {
+    Object.assign(this.faces, faceMap);
+    this.render();
+  }
+
+  _bindEvents() {
+    const el = this.canvas;
+    el.addEventListener('mousedown', e => { this._drag = true; this._lastX = e.clientX; this._lastY = e.clientY; });
+    el.addEventListener('touchstart', e => { this._drag = true; this._lastX = e.touches[0].clientX; this._lastY = e.touches[0].clientY; }, {passive:true});
+    window.addEventListener('mouseup', () => { this._drag = false; });
+    window.addEventListener('touchend', () => { this._drag = false; });
+    window.addEventListener('mousemove', e => {
+      if (!this._drag) return;
+      const dx = e.clientX - this._lastX;
+      const dy = e.clientY - this._lastY;
+      this.rotY += dx * 0.012;
+      this.rotX += dy * 0.012;
+      this.rotX = Math.max(-Math.PI/2 + 0.1, Math.min(Math.PI/2 - 0.1, this.rotX));
+      this._lastX = e.clientX; this._lastY = e.clientY;
+      this.render();
+    });
+    window.addEventListener('touchmove', e => {
+      if (!this._drag) return;
+      const dx = e.touches[0].clientX - this._lastX;
+      const dy = e.touches[0].clientY - this._lastY;
+      this.rotY += dx * 0.012;
+      this.rotX += dy * 0.012;
+      this.rotX = Math.max(-Math.PI/2 + 0.1, Math.min(Math.PI/2 - 0.1, this.rotX));
+      this._lastX = e.touches[0].clientX; this._lastY = e.touches[0].clientY;
+      this.render();
+    }, {passive: true});
+  }
+
+  // Project 3D point to 2D canvas
+  _project(x, y, z) {
+    const cosX = Math.cos(this.rotX), sinX = Math.sin(this.rotX);
+    const cosY = Math.cos(this.rotY), sinY = Math.sin(this.rotY);
+    // Rotate Y then X
+    const x1 = cosY * x + sinY * z;
+    const z1 = -sinY * x + cosY * z;
+    const y1 = sinX * z1 + cosX * y;
+    const z2 = cosX * z1 - sinX * y;
+
+    const fov = 380;
+    const depth = fov + z2;
+    return {
+      sx: (this.canvas.width / 2) + (x1 * fov) / depth,
+      sy: (this.canvas.height / 2) + (y1 * fov) / depth,
+      z: z2
+    };
+  }
+
+  _drawQuad(pts, color, borderColor) {
+    const ctx = this.ctx;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].sx, pts[0].sy);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].sx, pts[i].sy);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.strokeStyle = borderColor || '#0d0d0f';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  _faceNormal(face) {
+    switch(face) {
+      case 'U': return [0, -1, 0];
+      case 'D': return [0, 1, 0];
+      case 'F': return [0, 0, 1];
+      case 'B': return [0, 0, -1];
+      case 'R': return [1, 0, 0];
+      case 'L': return [-1, 0, 0];
+    }
+  }
+
+  _isFaceVisible(face) {
+    const n = this._faceNormal(face);
+    // Dot product of normal with view direction
+    const cosX = Math.cos(this.rotX), sinX = Math.sin(this.rotX);
+    const cosY = Math.cos(this.rotY), sinY = Math.sin(this.rotY);
+    // Camera direction in local space (inverse rotation applied to [0,0,-1])
+    const cx = sinY;
+    const cy = -sinX * cosY;
+    const cz = cosX * cosY;
+    return n[0]*cx + n[1]*cy + n[2]*cz > 0.01;
+  }
+
+  render() {
+    const { canvas, ctx, size } = this;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const s = this.size;
+    const cs = this.cellSize;
+    const gap = this.gap;
+    const total = s * (cs + gap) - gap;
+    const half = total / 2;
+
+    const polys = [];
+
+    const addFace = (face, cx, cy, cz, ax, ay, az, bx, by, bz, u, v) => {
+      const c = this.faces[face][v * s + u];
+      const color = this.COLORS[c] || this.COLORS.X;
+
+      const pts = [
+        this._project(cx, cy, cz),
+        this._project(cx + ax * cs, cy + ay * cs, cz + az * cs),
+        this._project(cx + ax * cs + bx * cs, cy + ay * cs + by * cs, cz + az * cs + bz * cs),
+        this._project(cx + bx * cs, cy + by * cs, cz + bz * cs),
+      ];
+      const avgZ = pts.reduce((s, p) => s + p.z, 0) / 4;
+      polys.push({ pts, color, avgZ });
+    };
+
+    // For each cubie face...
+    for (let i = 0; i < s; i++) {
+      for (let j = 0; j < s; j++) {
+        const u = j, v = i;
+        const sx = (cs + gap);
+
+        if (this._isFaceVisible('F')) {
+          const x = -half + j * sx;
+          const y = -half + i * sx;
+          addFace('F', x, y, half + 1, 1,0,0, 0,1,0, u, v);
+        }
+        if (this._isFaceVisible('B')) {
+          const x = half - j * sx;
+          const y = -half + i * sx;
+          addFace('B', x, y, -half - 1, -1,0,0, 0,1,0, u, v);
+        }
+        if (this._isFaceVisible('R')) {
+          const y = -half + i * sx;
+          const z = -half + j * sx;
+          addFace('R', half + 1, y, half - j * sx, 0,0,-1, 0,1,0, u, v);
+        }
+        if (this._isFaceVisible('L')) {
+          const y = -half + i * sx;
+          addFace('L', -half - 1, y, -half + j * sx, 0,0,1, 0,1,0, u, v);
+        }
+        if (this._isFaceVisible('U')) {
+          const x = -half + j * sx;
+          const z = -half + i * sx;
+          addFace('U', x, -half - 1, half - i * sx, 1,0,0, 0,0,-1, u, v);
+        }
+        if (this._isFaceVisible('D')) {
+          const x = -half + j * sx;
+          addFace('D', x, half + 1, -half + i * sx, 1,0,0, 0,0,1, u, v);
+        }
+      }
+    }
+
+    // Painter's algorithm
+    polys.sort((a, b) => a.avgZ - b.avgZ);
+    for (const p of polys) {
+      this._drawQuad(p.pts, p.color, '#0d0d0f');
+    }
+  }
+
+  destroy() {
+    cancelAnimationFrame(this._raf);
+  }
+}
+
+// Auto-animate the hero cube
+document.addEventListener('DOMContentLoaded', () => {
+  const heroCanvas = document.getElementById('heroCube');
+  if (!heroCanvas) return;
+  const cube = new RubiksCube3D(heroCanvas, { size: 3, cellSize: 42, rotX: -0.42, rotY: 0.75 });
+  let angle = 0.75;
+  const animate = () => {
+    if (!cube._drag) {
+      angle += 0.004;
+      cube.rotY = angle;
+      cube.render();
+    }
+    requestAnimationFrame(animate);
+  };
+  animate();
+});
+// main.js — UI logic, tabs, nav toggle
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Mobile nav toggle
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    document.addEventListener('click', e => {
+      if (!toggle.contains(e.target) && !links.contains(e.target)) {
+        links.classList.remove('open');
+      }
+    });
+  }
+
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.dataset.group;
+      const target = btn.dataset.tab;
+      document.querySelectorAll(`.tab-btn[data-group="${group}"]`).forEach(b => b.classList.remove('active'));
+      document.querySelectorAll(`.tab-panel[data-group="${group}"]`).forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`.tab-panel[data-group="${group}"][data-tab="${target}"]`)?.classList.add('active');
+    });
+  });
+
+  // Active nav link highlight
+  const path = window.location.pathname;
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    if (a.getAttribute('href') && path.endsWith(a.getAttribute('href').replace('../', '').replace('./', ''))) {
+      a.classList.add('active');
+    }
+  });
+
+  // Smooth section anchors from homepage
+  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href.includes('#') && !href.startsWith('#')) return; // let browser handle cross-page
+      const id = href.split('#')[1];
+      const el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Sidebar active state on scroll
+  const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+  if (sidebarLinks.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          sidebarLinks.forEach(l => l.classList.remove('active'));
+          const match = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+          if (match) match.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    document.querySelectorAll('.step-section[id]').forEach(s => observer.observe(s));
+  }
+});
+
+// Helper: render move sequence as styled spans
+function renderMoves(algoStr) {
+  return algoStr.trim().split(/\s+/).map(m => {
+    let cls = 'move';
+    if (m.includes("'")) cls += ' prime';
+    else if (m.includes('2')) cls += ' double';
+    return `<span class="${cls}">${m}</span>`;
+  }).join('');
+}
+
+// Call on page load for all .algo-moves elements
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-algo]').forEach(el => {
+    el.innerHTML = renderMoves(el.dataset.algo);
+  });
+});
+# 🧩 KUBGUIDE — Rubik's Cube Lösningsguide
+
+En interaktiv webbplats för att lära sig lösa Rubik's Cube — både 2×2 och 3×3. Byggd med ren HTML, CSS och JavaScript utan beroenden.
+
+## ✨ Funktioner
+
+- **Interaktiv 3D-kub** — Roterbar 3D-visualisering på varje sida (dra med musen/pekskärm)
+- **3×3 Nybörjarmetoden** — 7 steg, lager-för-lager med alla algoritmer
+- **3×3 CFOP/Fridrich** — Cross, F2L, OLL (vanligaste fallen), PLL (12 fall)
+- **2×2 Nybörjarmetoden** — 4 steg med Sune-algoritmen
+- **2×2 OLL** — Alla 7 orienteringsfall med diagram
+- **2×2 PBL** — Alla 5 permutationsfall (Permutation of Both Layers)
+- **Notationsreferens** — Komplett guide till Singmaster-notation
+- **Mobilanpassad** — Fungerar på alla skärmstorlekar
+- **Mörkt tema** — Stylad med ett distinkt mörkt, minimalistiskt utseende
+
+## 📁 Struktur
+
+```
+rubiks-cube-solver/
+├── index.html              # Startsida
+├── css/
+│   └── style.css           # All styling
+├── js/
+│   ├── cube3d.js           # 3D canvas-renderer
+│   └── main.js             # UI-logik, tabs, nav
+└── pages/
+    ├── 3x3.html            # 3×3 guide (nybörjare + CFOP)
+    ├── 2x2.html            # 2×2 guide (nybörjare + OLL + PBL)
+    └── notation.html       # Notationsreferens
+```
+
+## 🚀 Kom igång
+
+### Lokalt
+Klona repot och öppna `index.html` direkt i webbläsaren — inga beroenden!
+
+```bash
+git clone https://github.com/DITTNAMN/rubiks-cube-solver.git
+cd rubiks-cube-solver
+open index.html
+```
+
+### GitHub Pages
+1. Gå till **Settings → Pages** i ditt GitHub-repo
+2. Välj branch `main` och mappen `/ (root)`
+3. Spara — sidan är live på `https://DITTNAMN.github.io/rubiks-cube-solver`
+
+## 📚 Innehåll
+
+### 3×3 Nybörjarmetoden
+| Steg | Beskrivning |
+|------|-------------|
+| 1 | Vita korset |
+| 2 | Vita hörnen |
+| 3 | Mellanlagret (F2L nybörjare) |
+| 4 | Gult kors (OLL kors) |
+| 5 | Gula kanter |
+| 6 | Gula hörnen — placering |
+| 7 | Gula hörnen — orientering |
+
+### 3×3 CFOP
+- **Cross** — Intuitivt kors på bottenlagret
+- **F2L** — Grundläggande insättningar
+- **OLL** — Sune, Anti-Sune, T-form, Fish m.fl.
+- **PLL** — T, Y, U, J, A, Z, H, F, E-perm
+
+### 2×2 OLL (7 fall)
+Sune, Anti-Sune, Headlights, Bowtie, Double Sune, Double Anti-Sune, Ingen gul
+
+### 2×2 PBL (5 fall)
+U-perm (a/b), A-perm (a/b), E-perm, Solved
+
+## 🛠️ Teknologi
+
+- **Ren HTML5/CSS3/JavaScript** — Inga frameworks
+- **Canvas 2D API** — Egenutvecklad isometrisk 3D-renderer
+- **Google Fonts** — Bebas Neue, Space Mono, DM Sans
+- **Responsiv design** — CSS Grid + Flexbox
+
+## 📄 Licens
+
+MIT — Fri att använda och modifiera.
