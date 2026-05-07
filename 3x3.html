@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>3×3 Guide — KUBGUIDE</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .page-hero { --page-accent: var(--col-accent); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-brand">
+    <div class="brand-cube"><span></span><span></span><span></span><span></span></div>
+    KUBGUIDE
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Hem</a></li>
+    <li><a href="3x3.html" class="active">3×3 Kub</a></li>
+    <li><a href="2x2.html">2×2 Kub</a></li>
+    <li><a href="notation.html">Notation</a></li>
+  </ul>
+  <button class="nav-toggle">☰</button>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="page-breadcrumb">
+        <a href="../index.html">Hem</a>
+        <span>/</span>
+        <span>3×3 Kub</span>
+      </div>
+      <h1 class="page-title">3×3 Rubik's<br/><em style="font-style:italic">Cube</em></h1>
+      <p class="page-sub">Nybörjarmetoden med 7 steg, plus avancerad CFOP med F2L, OLL och PLL. Välj din nivå nedan.</p>
+      <div class="page-tabs">
+        <a href="#nybörjare" class="page-tab active" data-default>Nybörjare (LBL)</a>
+        <a href="#cfop" class="page-tab">CFOP / Avancerad</a>
+      </div>
+    </div>
+    <div class="page-hero-canvas">
+      <canvas id="pageHeroCube" width="220" height="220"></canvas>
+    </div>
+  </div>
+</header>
+
+<div class="guide-wrap">
+  <!-- SIDEBAR -->
+  <aside class="guide-sidebar">
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Nybörjarmetoden</div>
+      <ul class="sidebar-nav">
+        <li><a href="#nybörjare">Intro</a></li>
+        <li><a href="#s1">Steg 1 — Vita korset</a></li>
+        <li><a href="#s2">Steg 2 — Vita hörnen</a></li>
+        <li><a href="#s3">Steg 3 — Mellanlagret</a></li>
+        <li><a href="#s4">Steg 4 — Gult kors</a></li>
+        <li><a href="#s5">Steg 5 — Gula kanter</a></li>
+        <li><a href="#s6">Steg 6 — Placera hörnen</a></li>
+        <li><a href="#s7">Steg 7 — Vänd hörnen</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">CFOP</div>
+      <ul class="sidebar-nav">
+        <li><a href="#cfop">Översikt</a></li>
+        <li><a href="#f2l">F2L</a></li>
+        <li><a href="#oll3">OLL</a></li>
+        <li><a href="#pll">PLL</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="guide-main">
+
+    <!-- ===== NYBÖRJARE INTRO ===== -->
+    <section class="guide-section" id="nybörjare">
+      <div class="step-header">
+        <span class="step-num">GUIDE</span>
+        <h2 class="step-title">Nybörjarmetoden</h2>
+      </div>
+      <p class="step-intro">Lager-för-lager (LBL) är världens vanligaste nybörjarmetod. Du löser tre lager uppifrån och ner: vitt lager → mellanlager → gult lager. Inga förkunskaper krävs.</p>
+
+      <!-- Progress tracker -->
+      <div class="progress-track">
+        <a href="#s1" class="progress-step active"><span class="progress-n">01</span><span class="progress-label">Vitt kors</span></a>
+        <a href="#s2" class="progress-step"><span class="progress-n">02</span><span class="progress-label">Vita hörn</span></a>
+        <a href="#s3" class="progress-step"><span class="progress-n">03</span><span class="progress-label">Mellanlager</span></a>
+        <a href="#s4" class="progress-step"><span class="progress-n">04</span><span class="progress-label">Gult kors</span></a>
+        <a href="#s5" class="progress-step"><span class="progress-n">05</span><span class="progress-label">Gula kanter</span></a>
+        <a href="#s6" class="progress-step"><span class="progress-n">06</span><span class="progress-label">Placera hörn</span></a>
+        <a href="#s7" class="progress-step"><span class="progress-n">07</span><span class="progress-label">Vänd hörn</span></a>
+      </div>
+
+      <div class="canvas-embed">
+        <canvas id="cube3x3_intro" width="280" height="280"></canvas>
+        <span class="canvas-caption">3×3 · Dra för att rotera</span>
+      </div>
+
+      <div class="card highlight">
+        <div class="card-title">📖 Innan du börjar</div>
+        <div class="card-body">
+          <p>Håll kuben med <strong>vit sida upp</strong> och en <strong>sida mot dig</strong> under hela nybörjarguiden. Varje algoritm förutsätter denna orientering.</p>
+          <p>Bekanta dig med <a href="notation.html" style="color:var(--col-accent)">notationen</a> om du inte redan gjort det. R = höger sida medsols, R' = höger sida motsols, U = övre sida medsols osv.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 1 ===== -->
+    <section class="guide-section" id="s1">
+      <div class="step-header">
+        <span class="step-num">01</span>
+        <h2 class="step-title">Vita korset</h2>
+      </div>
+      <p class="step-intro">Skapa ett vitt kors på toppen (U-sidan). Varje arm i korset ska matcha sin sidofärg — den vita/röda kanten ska sitta mot röda sidan, osv.</p>
+
+      <div class="card">
+        <div class="card-title">🎯 Mål</div>
+        <div class="card-body">
+          <div style="display:flex; gap:2rem; align-items:center; flex-wrap:wrap">
+            <div>
+              <p>Toppen ska se ut så här — ett vitt kors där varje kant matchar sin sidas centrum:</p>
+              <div style="margin-top:1rem">
+                <div class="face-diagram face-3x3">
+                  <div class="fc fc-X"></div><div class="fc fc-W"></div><div class="fc fc-X"></div>
+                  <div class="fc fc-W"></div><div class="fc fc-W"></div><div class="fc fc-W"></div>
+                  <div class="fc fc-X"></div><div class="fc fc-W"></div><div class="fc fc-X"></div>
+                </div>
+                <div style="font-size:.72rem;color:var(--col-muted);margin-top:.4rem;font-family:var(--ff-mono)">U-sida (uppifrån)</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Dessutom ska kantstyckenas andra färg matcha sidans centrum:</p>
+              <div style="margin-top:.5rem">
+                <div class="face-diagram face-3x3">
+                  <div class="fc fc-X"></div><div class="fc fc-R"></div><div class="fc fc-X"></div>
+                  <div class="fc fc-X"></div><div class="fc fc-R"></div><div class="fc fc-X"></div>
+                  <div class="fc fc-X"></div><div class="fc fc-X"></div><div class="fc fc-X"></div>
+                </div>
+                <div style="font-size:.72rem;color:var(--col-muted);margin-top:.4rem;font-family:var(--ff-mono)">F-sida (framifrån)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💡 Strategi</div>
+        <div class="card-body">
+          <p>Det vita korset löses <strong>intuitivt</strong> — ingen fast algoritm. Tänk i 3 steg:</p>
+          <ol>
+            <li>Hitta en vit kantpjäs (vit + en annan färg)</li>
+            <li>Identifiera vilken sida den tillhör (matcha den andra färgen mot sidan)</li>
+            <li>Manövrera pjäsen till rätt plats utan att förstöra redan placerade kanter</li>
+          </ol>
+          <p style="margin-top:.8rem">Börja med en enkel kant och bygg korset kant för kant. Det brukar ta 6–10 drag totalt.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 2 ===== -->
+    <section class="guide-section" id="s2">
+      <div class="step-header">
+        <span class="step-num">02</span>
+        <h2 class="step-title">Vita hörnen</h2>
+      </div>
+      <p class="step-intro">Placera de fyra vita hörnpjäserna för att fullborda det vita lagret. Varje hörn har tre färger och ska sitta i rätt hörn med rätt orientering.</p>
+
+      <div class="card">
+        <div class="card-title">📌 Hitta rätt hörn</div>
+        <div class="card-body">
+          <p>Håll kuben med vit sida upp. Hitta ett vitt hörn i bottenlagret. Vrid det undre lagret (D) tills hörnet är rakt under sin målposition (det hörn där dess tre färger hör hemma).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Algoritm — Höger insättning</div>
+        <div class="card-body">
+          <p>Kör denna algoritm tills hörnet sitter korrekt (1, 2 eller 3 gånger beroende på orientering):</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Höger insättning</div>
+            <div class="algo-moves" data-algo="R U R' U'"></div>
+          </div>
+          <p>Det tar 1–5 upprepningar. Hörnet orienteras olika beroende på hur det sitter i bottenlagret.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Om hörnet sitter felvänt ovan</div>
+        <div class="card-body">
+          <p>Sitter hörnet redan uppe i fel orientering? Skicka ner det till bottenlagret och sätt sedan in korrekt:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Flytta ner felvänt hörn (håll det i FRU)</div>
+            <div class="algo-moves" data-algo="R U R' U' R U R' U' R U R'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">✅ Mål — Vitt lager klart</div>
+        <div class="card-body">
+          <p>Hela det vita lagret (kors + 4 hörn) ska nu vara korrekt. Vrid kuben upp-och-ned — du arbetar nu med gul sida upp för resten av guiden.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 3 ===== -->
+    <section class="guide-section" id="s3">
+      <div class="step-header">
+        <span class="step-num">03</span>
+        <h2 class="step-title">Mellanlagret</h2>
+      </div>
+      <p class="step-intro">Sätt in de fyra kantpjäserna i mellanlagret (F2L-lagret). Kuben är nu vänd — gul sida upp. Hitta kantpjäser i det övre lagret som <em>inte</em> har gult.</p>
+
+      <div class="card">
+        <div class="card-title">📌 Identifiera rätt kant</div>
+        <div class="card-body">
+          <p>Titta på kanterna i det övre lagret (U-lagret). De kanter som inte innehåller gult hör hemma i mellanlagret. Vrid U tills kanten's framsida matchar den sidan.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Algoritm — Sätt in till höger</div>
+        <div class="card-body">
+          <p>Kanten sitter i U-lagret, framsidan matchar. Den andra färgen pekar åt höger:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Inserting right</div>
+            <div class="algo-moves" data-algo="U R U' R' U' F' U F"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Algoritm — Sätt in till vänster</div>
+        <div class="card-body">
+          <p>Kanten sitter i U-lagret, framsidan matchar. Den andra färgen pekar åt vänster:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Inserting left</div>
+            <div class="algo-moves" data-algo="U' L' U L U F U' F'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Om kanten sitter felvänd i mellanlagret</div>
+        <div class="card-body">
+          <p>Kör en av insertions-algoritmerna ovan för att "kicka ut" kanten till U-lagret, sedan sätt in den korrekt.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 4 ===== -->
+    <section class="guide-section" id="s4">
+      <div class="step-header">
+        <span class="step-num">04</span>
+        <h2 class="step-title">Gult kors</h2>
+      </div>
+      <p class="step-intro">Skapa ett gult kors på U-sidan. Hörnpjäserna spelar ingen roll ännu — vi fokuserar bara på de 4 kanterna i korset.</p>
+
+      <div class="card">
+        <div class="card-title">🔍 Identifiera ditt läge</div>
+        <div class="card-body">
+          <p>Titta uppifrån på kuben. Du ser ett av dessa 4 lägen:</p>
+          <div style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:1rem; align-items:flex-start">
+            <div>
+              <div class="face-diagram face-3x3">
+                <div class="fc fc-X"></div><div class="fc fc-X"></div><div class="fc fc-X"></div>
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div><div class="fc fc-X"></div>
+                <div class="fc fc-X"></div><div class="fc fc-X"></div><div class="fc fc-X"></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--col-muted);margin-top:.4rem;text-align:center">Punkt</div>
+            </div>
+            <div>
+              <div class="face-diagram face-3x3">
+                <div class="fc fc-X"></div><div class="fc fc-X"></div><div class="fc fc-X"></div>
+                <div class="fc fc-Y"></div><div class="fc fc-Y"></div><div class="fc fc-X"></div>
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div><div class="fc fc-X"></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--col-muted);margin-top:.4rem;text-align:center">L-form</div>
+            </div>
+            <div>
+              <div class="face-diagram face-3x3">
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div><div class="fc fc-X"></div>
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div><div class="fc fc-X"></div>
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div><div class="fc fc-X"></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--col-muted);margin-top:.4rem;text-align:center">Linje</div>
+            </div>
+            <div>
+              <div class="face-diagram face-3x3">
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div><div class="fc fc-X"></div>
+                <div class="fc fc-Y"></div><div class="fc fc-Y"></div><div class="fc fc-Y"></div>
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div><div class="fc fc-X"></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--col-muted);margin-top:.4rem;text-align:center">Kors ✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Algoritm — Korsalgoritm</div>
+        <div class="card-body">
+          <div class="algo-wrap">
+            <div class="algo-label">OLL Kors</div>
+            <div class="algo-moves" data-algo="F R U R' U' F'"></div>
+          </div>
+          <table style="width:100%;border-collapse:collapse;margin-top:1rem;font-size:.83rem">
+            <tr style="border-bottom:1px solid var(--col-border)">
+              <td style="padding:.5rem .5rem .5rem 0;color:var(--col-muted);font-family:var(--ff-mono)">Punkt</td>
+              <td style="padding:.5rem;color:var(--col-muted)">Kör algoritmen 2 gånger (valfri orientering)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--col-border)">
+              <td style="padding:.5rem .5rem .5rem 0;color:var(--col-muted);font-family:var(--ff-mono)">L-form</td>
+              <td style="padding:.5rem;color:var(--col-muted)">Håll L-formen i övre vänstra hörnet, kör 1 gång</td>
+            </tr>
+            <tr>
+              <td style="padding:.5rem .5rem .5rem 0;color:var(--col-muted);font-family:var(--ff-mono)">Linje</td>
+              <td style="padding:.5rem;color:var(--col-muted)">Håll linjen horisontellt, kör 1 gång</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 5 ===== -->
+    <section class="guide-section" id="s5">
+      <div class="step-header">
+        <span class="step-num">05</span>
+        <h2 class="step-title">Gula kanter</h2>
+      </div>
+      <p class="step-intro">Korset är klart — nu ska kanterna i korset matchas mot sina sidors centrum. Vrid U-lagret och kolla hur många kanter som redan stämmer.</p>
+
+      <div class="card">
+        <div class="card-title">⚙️ Algoritm — Rotera kantpjäserna</div>
+        <div class="card-body">
+          <p>Hitta en kant som matchar sin sida och håll den mot dig (framsida). Kör:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Rotera 3 kanter (moturs sett uppifrån)</div>
+            <div class="algo-moves" data-algo="R U R' U R U2 R' U"></div>
+          </div>
+          <p>Detta roterar de tre <em>andra</em> kanterna moturs. Kör 1–2 gånger tills alla stämmer. Vrid U emellan om ingen kant matchar.</p>
+        </div>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">✅ Kontrollera</div>
+        <div class="card-body">
+          <p>Alla fyra sidor ska nu ha matchande kantfärg mot dess centrum. Det gula korset ska vara korrekt — bara hörnen återstår.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 6 ===== -->
+    <section class="guide-section" id="s6">
+      <div class="step-header">
+        <span class="step-num">06</span>
+        <h2 class="step-title">Placera hörnpjäserna</h2>
+      </div>
+      <p class="step-intro">Flytta de gula hörnpjäserna till rätt positioner. De behöver inte vara korrekt orienterade ännu — bara placerade i rätt hörn.</p>
+
+      <div class="card">
+        <div class="card-title">📌 Hitta ett korrekt placerat hörn</div>
+        <div class="card-body">
+          <p>Titta på de fyra hörnpjäserna. Ett hörn är "rätt placerat" om det innehåller rätt tre färger, oavsett orientering. Håll det hörnet i FR-U-positionen (framsida höger, uppe).</p>
+          <p style="margin-top:.5rem">Har du inget rätt placerat hörn? Kör algoritmen en gång med valfri orientering — du får ett rätt.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Algoritm — Cykla tre hörn</div>
+        <div class="card-body">
+          <div class="algo-wrap">
+            <div class="algo-label">Hörn permutation (roterar 3 hörn medsols)</div>
+            <div class="algo-moves" data-algo="U R U' L' U R' U' L"></div>
+          </div>
+          <p>Håll det korrekta hörnet i FRU och kör tills alla fyra hörn sitter på rätt platser.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 7 ===== -->
+    <section class="guide-section" id="s7">
+      <div class="step-header">
+        <span class="step-num">07</span>
+        <h2 class="step-title">Vänd hörnpjäserna</h2>
+      </div>
+      <p class="step-intro">Sista steget! Orientera de hörn som fortfarande är felvända. Under detta steg kommer kuben att se förstörd ut — det är <strong>helt normalt</strong>.</p>
+
+      <div class="card warning">
+        <div class="card-title">⚠️ VIKTIGT — Läs detta innan du kör</div>
+        <div class="card-body">
+          <p>Under detta steg: <strong>Rör ALDRIG U-lagret mitt i en sekvens</strong>. Kör hela sekvensen tills ett hörn är rätt orienterat. Flytta sedan U-lagret till nästa felaktiga hörn. Kör igen. Upprepa.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Algoritm — Vrid hörn medsols</div>
+        <div class="card-body">
+          <p>Håll kuben med gul sida upp. Välj ett felvänt hörn och håll det i FRU. Kör tills det sitter rätt (2 eller 4 gånger):</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Orientera hörn medsols</div>
+            <div class="algo-moves" data-algo="R' D' R D"></div>
+          </div>
+          <p>2 gånger = vrider medsols. 4 gånger = vrider motsols. Flytta sedan U (inte hela kuben!) till nästa felaktiga hörn och upprepa.</p>
+        </div>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">🎉 Grattis — Kuben är löst!</div>
+        <div class="card-body">
+          <p>Alla lager ska nu vara kompletta. Nu kan du träna på att lösa snabbare, eller ta steget till <strong>CFOP-metoden</strong> nedan för att dramatiskt minska din lösestid.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== CFOP OVERVIEW ===== -->
+    <section class="guide-section" id="cfop">
+      <div class="step-header">
+        <span class="step-num method">CFOP</span>
+        <h2 class="step-title">CFOP / Fridrich</h2>
+      </div>
+      <p class="step-intro">CFOP är världens vanligaste speedcubing-metod. Namngivet efter Jessica Fridrich. C = Cross, F = First Two Layers, O = Orientation of Last Layer, P = Permutation of Last Layer.</p>
+
+      <div class="card">
+        <div class="card-title">De 4 faserna</div>
+        <div class="card-body">
+          <div style="display:flex; flex-direction:column; gap:.8rem; margin-top:.5rem">
+            <div style="display:flex; gap:1rem; align-items:flex-start; padding:.9rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:var(--radius)">
+              <span style="font-family:var(--ff-mono);font-size:1.1rem;font-weight:700;color:var(--col-accent);min-width:2.8rem;line-height:1.2">C</span>
+              <div><strong>Cross</strong> — Lös ett vitt kors på bottenlagret intuitivt. Mål: ≤8 drag.</div>
+            </div>
+            <div style="display:flex; gap:1rem; align-items:flex-start; padding:.9rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:var(--radius)">
+              <span style="font-family:var(--ff-mono);font-size:1.1rem;font-weight:700;color:var(--cube-blue);min-width:2.8rem;line-height:1.2">F2L</span>
+              <div><strong>First Two Layers</strong> — Lös de nedre 2 lagren simultant (hörn + kant som par). 41 fall.</div>
+            </div>
+            <div style="display:flex; gap:1rem; align-items:flex-start; padding:.9rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:var(--radius)">
+              <span style="font-family:var(--ff-mono);font-size:1.1rem;font-weight:700;color:var(--cube-green);min-width:2.8rem;line-height:1.2">OLL</span>
+              <div><strong>Orientation of Last Layer</strong> — Orientera alla 9 stickor på toppsidan (57 fall). Allt gult upp.</div>
+            </div>
+            <div style="display:flex; gap:1rem; align-items:flex-start; padding:.9rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:var(--radius)">
+              <span style="font-family:var(--ff-mono);font-size:1.1rem;font-weight:700;color:var(--cube-red);min-width:2.8rem;line-height:1.2">PLL</span>
+              <div><strong>Permutation of Last Layer</strong> — Permuterar de sista 8 pjäserna (21 fall). Kuben löst.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== F2L ===== -->
+    <section class="guide-section" id="f2l">
+      <div class="step-header">
+        <span class="step-num method">F2L</span>
+        <h2 class="step-title">First Two Layers</h2>
+      </div>
+      <p class="step-intro">I F2L löser du hörn och kant simultant som ett "par". Jämfört med nybörjarmetoden sparar detta 10–20 drag. Lär dig de grundläggande fallen nedan.</p>
+
+      <div class="card">
+        <div class="card-title">Grundfall 1 — Pair i U-lagret, sätt in höger</div>
+        <div class="card-body">
+          <p>Hörn och kant sitter båda i U-lagret och bildar ett matchande par. Håll slotet (platsen där de ska) till höger:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Pair insert right</div>
+            <div class="algo-moves" data-algo="U R U' R'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Grundfall 2 — Pair i U-lagret, sätt in vänster</div>
+        <div class="card-body">
+          <div class="algo-wrap">
+            <div class="algo-label">Pair insert left</div>
+            <div class="algo-moves" data-algo="U' L' U L"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Vanligt fall — Hörnet korrekt, kanten felvand</div>
+        <div class="card-body">
+          <p>Hörnet sitter nere korrekt, kanten är i U-lagret:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Fix edge</div>
+            <div class="algo-moves" data-algo="U R U' R' U' F' U F"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Vanligt fall — Hörnet nere, kant korrekt</div>
+        <div class="card-body">
+          <div class="algo-wrap">
+            <div class="algo-label">Fix corner</div>
+            <div class="algo-moves" data-algo="R U R' U R U2 R' U2 R U' R'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Sexig rörelse — Grunden för intuitivt F2L</div>
+        <div class="card-body">
+          <p>Den vanligaste sekvensen i F2L. Memorera den tills det sitter i muskelminnet:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Sexy Move</div>
+            <div class="algo-moves" data-algo="R U R' U'"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== OLL 3x3 ===== -->
+    <section class="guide-section" id="oll3">
+      <div class="step-header">
+        <span class="step-num advanced">OLL</span>
+        <h2 class="step-title">Orientation of Last Layer</h2>
+      </div>
+      <p class="step-intro">OLL orienterar alla 9 stickor på toppsidan med ett drag — alla gula sticker uppåt. Det finns 57 fall. Börja med de vanligaste (Sune + Anti-Sune) och bygg vidare.</p>
+
+      <div class="tabs-row" data-tabs="oll3x3">
+        <button class="tab-btn active" data-tab="vanligaste">Vanligaste</button>
+        <button class="tab-btn" data-tab="linje">Linje/Kors</button>
+        <button class="tab-btn" data-tab="corner">Hörn</button>
+      </div>
+      <div class="tab-content">
+        <div class="tab-panel active" data-tabs="oll3x3" data-tab="vanligaste">
+          <div class="case-grid">
+            <div class="case-card">
+              <div class="case-name">OLL 21 — Sune</div>
+              <div class="case-desc">1 korrekt hörn, UFR-positionen. Det vanligaste OLL-fallet.</div>
+              <div class="case-algo" data-algotext="R U R' U R U2 R'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 22 — Anti-Sune</div>
+              <div class="case-desc">Spegeln av Sune.</div>
+              <div class="case-algo" data-algotext="R U2 R' U' R U' R'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 57 — Diagonal</div>
+              <div class="case-desc">2 hörn korrekt diagonalt.</div>
+              <div class="case-algo" data-algotext="R U R' U' M' U R U' r'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 51 — Gun</div>
+              <div class="case-desc">T-form med 2 sidoedges.</div>
+              <div class="case-algo" data-algotext="F U R U' R' U R U' R' F'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 29 — Squeezy</div>
+              <div class="case-desc">Komplicerat hörnfall.</div>
+              <div class="case-algo" data-algotext="R U R' U' R U' R' F' U' F R U R'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 53 — Frying Pan</div>
+              <div class="case-desc">Wide move variant.</div>
+              <div class="case-algo" data-algotext="r' U' R U' R' U R U' R' U2 r"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-tabs="oll3x3" data-tab="linje">
+          <div class="case-grid">
+            <div class="case-card">
+              <div class="case-name">OLL 45 — T-form</div>
+              <div class="case-desc">Korsform med 2 hörn.</div>
+              <div class="case-algo" data-algotext="F R U R' U' F'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 46 — Anti-T</div>
+              <div class="case-desc">Spegling av T-form.</div>
+              <div class="case-algo" data-algotext="F' U' L' U L F"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 47 — Fish R</div>
+              <div class="case-desc">Fisksform, höger.</div>
+              <div class="case-algo" data-algotext="F R' F' R U R U' R'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 48 — Fish L</div>
+              <div class="case-desc">Fisksform, vänster.</div>
+              <div class="case-algo" data-algotext="R U R' U' R' F R F'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 23 — Kors</div>
+              <div class="case-desc">Kors, 4 hörn fel.</div>
+              <div class="case-algo" data-algotext="R2 D' R U2 R' D R U2 R"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 24 — Cross L</div>
+              <div class="case-desc">Kors-variant L.</div>
+              <div class="case-algo" data-algotext="r U R' U' r' F R F'"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-tabs="oll3x3" data-tab="corner">
+          <div class="case-grid">
+            <div class="case-card">
+              <div class="case-name">OLL 26 — Blinkar</div>
+              <div class="case-desc">Kors OK, 2 hörn fel.</div>
+              <div class="case-algo" data-algotext="R U2 R' U' R U R' U' R U' R'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 27 — Anti-Blinkar</div>
+              <div class="case-desc">Spegel av Blinkar.</div>
+              <div class="case-algo" data-algotext="R U R' U R U2 R'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 28 — Arrows</div>
+              <div class="case-desc">Pilmönster.</div>
+              <div class="case-algo" data-algotext="r U R' U' r' R U R U' R'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">OLL 55 — Skewb</div>
+              <div class="case-desc">Diagonal skip.</div>
+              <div class="case-algo" data-algotext="R' F R U R U' R2 F' R2 U' R' U R U R'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PLL ===== -->
+    <section class="guide-section" id="pll">
+      <div class="step-header">
+        <span class="step-num advanced">PLL</span>
+        <h2 class="step-title">Permutation of Last Layer</h2>
+      </div>
+      <p class="step-intro">PLL är CFOP:s sista steg — permuterar alla 8 pjäser i det sista lagret. Det finns 21 PLL-fall. Lär dig T-perm och U-perm först, sedan bygg vidare.</p>
+
+      <div class="tabs-row" data-tabs="pll3x3">
+        <button class="tab-btn active" data-tab="kant">Kant-PLL</button>
+        <button class="tab-btn" data-tab="horn">Hörn-PLL</button>
+        <button class="tab-btn" data-tab="mix">Mix-PLL</button>
+      </div>
+      <div class="tab-content">
+        <div class="tab-panel active" data-tabs="pll3x3" data-tab="kant">
+          <div class="case-grid">
+            <div class="case-card">
+              <div class="case-name">U-perm (a)</div>
+              <div class="case-desc">3 kanter roterar medsols.</div>
+              <div class="case-algo" data-algotext="R U' R U R U R U' R' U' R2"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">U-perm (b)</div>
+              <div class="case-desc">3 kanter roterar motsols.</div>
+              <div class="case-algo" data-algotext="R2 U R U R' U' R' U' R' U R'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">Z-perm</div>
+              <div class="case-desc">4 kanter, diagonal swap.</div>
+              <div class="case-algo" data-algotext="M2 U M2 U M' U2 M2 U2 M' U2"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">H-perm</div>
+              <div class="case-desc">4 kanter, dubbel swap.</div>
+              <div class="case-algo" data-algotext="M2 U M2 U2 M2 U M2"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-tabs="pll3x3" data-tab="horn">
+          <div class="case-grid">
+            <div class="case-card">
+              <div class="case-name">A-perm (a)</div>
+              <div class="case-desc">3 hörn medsols.</div>
+              <div class="case-algo" data-algotext="x R' U R' D2 R U' R' D2 R2 x'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">A-perm (b)</div>
+              <div class="case-desc">3 hörn motsols.</div>
+              <div class="case-algo" data-algotext="x R2 D2 R U R' D2 R U' R x'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">E-perm</div>
+              <div class="case-desc">Dubbel 2-hörnsyte.</div>
+              <div class="case-algo" data-algotext="x' R U' R' D R U R' D' R U R' D R U' R' D' x"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-tabs="pll3x3" data-tab="mix">
+          <div class="case-grid">
+            <div class="case-card">
+              <div class="case-name">T-perm</div>
+              <div class="case-desc">2 hörn + 2 kanter swap. Vanligaste PLL.</div>
+              <div class="case-algo" data-algotext="R U R' U' R' F R2 U' R' U' R U R' F'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">Y-perm</div>
+              <div class="case-desc">Diagonal hörn + kant.</div>
+              <div class="case-algo" data-algotext="F R U' R' U' R U R' F' R U R' U' R' F R F'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">J-perm (a)</div>
+              <div class="case-desc">Hörn + kant på vänster.</div>
+              <div class="case-algo" data-algotext="R' U L' U2 R U' R' U2 R L U'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">J-perm (b)</div>
+              <div class="case-desc">Hörn + kant på höger.</div>
+              <div class="case-algo" data-algotext="R U R' F' R U R' U' R' F R2 U' R'"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">F-perm</div>
+              <div class="case-desc">Komplicerat mixfall.</div>
+              <div class="case-algo" data-algotext="R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R"></div>
+            </div>
+            <div class="case-card">
+              <div class="case-name">R-perm (a)</div>
+              <div class="case-desc">3 delar roterar.</div>
+              <div class="case-algo" data-algotext="R U' R' U' R U R D R' U' R D' R' U2 R' U'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <span class="footer-copy">KUBGUIDE © 2025</span>
+  <nav class="footer-nav">
+    <a href="../index.html">Hem</a>
+    <a href="3x3.html">3×3</a>
+    <a href="2x2.html">2×2</a>
+    <a href="notation.html">Notation</a>
+  </nav>
+</footer>
+
+<script src="../js/cube3d.js"></script>
+<script src="../js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Page hero cube
+  const c1 = document.getElementById('pageHeroCube');
+  if (c1) {
+    const cube = new RubiksCube3D(c1, { size: 3, cellSize: 32, rotX: -0.45, rotY: 0.72 });
+    cube.startAutoRotate(0.005);
+  }
+  // Guide intro cube
+  const c2 = document.getElementById('cube3x3_intro');
+  if (c2) {
+    const cube2 = new RubiksCube3D(c2, { size: 3, cellSize: 40, rotX: -0.45, rotY: 0.72 });
+    cube2.startAutoRotate(0.005);
+  }
+});
+</script>
+</body>
+</html>

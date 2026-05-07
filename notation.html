@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notation — KUBGUIDE</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .page-hero { --page-accent: var(--col-blue); }
+
+    .move-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1px;
+      background: var(--col-border);
+      border: 1px solid var(--col-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+    .move-item {
+      background: var(--col-surface);
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+      min-width: 100px;
+      transition: background var(--transition);
+    }
+    .move-item:hover { background: var(--col-raised); }
+    .move-symbol {
+      font-family: var(--ff-mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--col-accent);
+      line-height: 1;
+    }
+    .move-name {
+      font-size: 0.78rem;
+      color: var(--col-text);
+      font-weight: 500;
+    }
+    .move-dir {
+      font-size: 0.72rem;
+      color: var(--col-muted);
+    }
+
+    .color-block {
+      display: flex;
+      gap: 1px;
+      background: var(--col-border);
+      border: 1px solid var(--col-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+    .color-face {
+      flex: 1;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+      text-align: center;
+    }
+    .color-swatch-big {
+      width: 2.8rem;
+      height: 2.8rem;
+      border-radius: var(--radius);
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+    .color-face-letter {
+      font-family: var(--ff-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--col-text);
+    }
+    .color-face-name {
+      font-size: 0.7rem;
+      color: var(--col-muted);
+      line-height: 1.4;
+    }
+
+    .tip-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--col-border);
+      border: 1px solid var(--col-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+    .tip-item {
+      background: var(--col-surface);
+      padding: 1.5rem;
+    }
+    .tip-item h4 {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--col-accent);
+      margin-bottom: 0.7rem;
+    }
+    .tip-item p {
+      font-size: 0.85rem;
+      color: var(--col-muted);
+      line-height: 1.65;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-brand">
+    <div class="brand-cube"><span></span><span></span><span></span><span></span></div>
+    KUBGUIDE
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Hem</a></li>
+    <li><a href="3x3.html">3×3 Kub</a></li>
+    <li><a href="2x2.html">2×2 Kub</a></li>
+    <li><a href="notation.html" class="active">Notation</a></li>
+  </ul>
+  <button class="nav-toggle">☰</button>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="page-breadcrumb">
+        <a href="../index.html">Hem</a>
+        <span>/</span>
+        <span>Notation</span>
+      </div>
+      <h1 class="page-title">Singmaster<br/><em style="font-style:italic">Notation</em></h1>
+      <p class="page-sub">Standardnotationen för att beskriva Rubik's Cube-drag. Förstår du notationen kan du följa vilken algoritm som helst i världen.</p>
+    </div>
+    <div class="page-hero-canvas">
+      <canvas id="notationCube" width="220" height="220"></canvas>
+    </div>
+  </div>
+</header>
+
+<div class="guide-wrap">
+  <aside class="guide-sidebar">
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Innehåll</div>
+      <ul class="sidebar-nav">
+        <li><a href="#sidor">Sidornas namn</a></li>
+        <li><a href="#basdrag">Basdrag (R U F L D B)</a></li>
+        <li><a href="#prime">Prime — Motsols</a></li>
+        <li><a href="#dubbel">Dubbeldrag — 2</a></li>
+        <li><a href="#wide">Wide-drag (Rw / r)</a></li>
+        <li><a href="#skivor">Skivdrag (M S E)</a></li>
+        <li><a href="#rotationer">Kubrotationer</a></li>
+        <li><a href="#farger">Färger & positioner</a></li>
+        <li><a href="#tips">Lästips</a></li>
+        <li><a href="#exempel">Exempel-algoritmer</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="guide-main">
+
+    <!-- ===== SIDOR ===== -->
+    <section class="guide-section" id="sidor">
+      <div class="step-header">
+        <span class="step-num">01</span>
+        <h2 class="step-title">Sidornas namn</h2>
+      </div>
+      <p class="step-intro">Håll kuben med vit sida upp och en sida mot dig. Varje sida har ett engelskt namn och en förkortningsbokstav som används i notationen.</p>
+
+      <div class="card">
+        <div class="card-title">🗺️ De 6 sidorna</div>
+        <div class="card-body">
+          <table class="notation-table">
+            <thead>
+              <tr><th>Bokstav</th><th>Engelska</th><th>Svenska</th><th>Position</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="move-xl">U</span></td>
+                <td>Up</td><td>Övre sidan</td>
+                <td style="color:var(--col-muted);font-size:.85rem">Toppen — normalt vit</td>
+              </tr>
+              <tr>
+                <td><span class="move-xl">D</span></td>
+                <td>Down</td><td>Nedre sidan</td>
+                <td style="color:var(--col-muted);font-size:.85rem">Botten — normalt gul</td>
+              </tr>
+              <tr>
+                <td><span class="move-xl">F</span></td>
+                <td>Front</td><td>Framsidan</td>
+                <td style="color:var(--col-muted);font-size:.85rem">Sidan mot dig</td>
+              </tr>
+              <tr>
+                <td><span class="move-xl">B</span></td>
+                <td>Back</td><td>Baksidan</td>
+                <td style="color:var(--col-muted);font-size:.85rem">Sidan bort från dig</td>
+              </tr>
+              <tr>
+                <td><span class="move-xl">R</span></td>
+                <td>Right</td><td>Högersidan</td>
+                <td style="color:var(--col-muted);font-size:.85rem">Din högra sida</td>
+              </tr>
+              <tr>
+                <td><span class="move-xl">L</span></td>
+                <td>Left</td><td>Vänstersidan</td>
+                <td style="color:var(--col-muted);font-size:.85rem">Din vänstra sida</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">💡 Tumregel</div>
+        <div class="card-body">
+          <p>All notation är från <strong>din</strong> synvinkel. R är alltid din högra sida oavsett vilken färg den har. Kuben byts om du vrider den — men du vrider den inte (det är rotationer, se nedan).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BASDRAG ===== -->
+    <section class="guide-section" id="basdrag">
+      <div class="step-header">
+        <span class="step-num">02</span>
+        <h2 class="step-title">Basdrag</h2>
+      </div>
+      <p class="step-intro">Ett ensamt bokstavsdrag roterar den sidan 90° <strong>medsols</strong> — sett inifrån mot den ytan. Alla grunddrag är medsols om inget annat anges.</p>
+
+      <div class="move-showcase">
+        <div class="move-item">
+          <div class="move-symbol">R</div>
+          <div class="move-name">Right</div>
+          <div class="move-dir">Höger sida uppåt</div>
+        </div>
+        <div class="move-item">
+          <div class="move-symbol">L</div>
+          <div class="move-name">Left</div>
+          <div class="move-dir">Vänster sida nedåt</div>
+        </div>
+        <div class="move-item">
+          <div class="move-symbol">U</div>
+          <div class="move-name">Up</div>
+          <div class="move-dir">Övre lagret åt vänster</div>
+        </div>
+        <div class="move-item">
+          <div class="move-symbol">D</div>
+          <div class="move-name">Down</div>
+          <div class="move-dir">Nedre lagret åt höger</div>
+        </div>
+        <div class="move-item">
+          <div class="move-symbol">F</div>
+          <div class="move-name">Front</div>
+          <div class="move-dir">Framsidan medsols</div>
+        </div>
+        <div class="move-item">
+          <div class="move-symbol">B</div>
+          <div class="move-name">Back</div>
+          <div class="move-dir">Baksidan medsols*</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📝 Observera om B-draget</div>
+        <div class="card-body">
+          <p>B (Back) medsols ser ut som ett motsols-drag sett framifrån. Tänk alltid på "medsols sett inifrån mot den ytan" — inte sett framifrån.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRIME ===== -->
+    <section class="guide-section" id="prime">
+      <div class="step-header">
+        <span class="step-num">03</span>
+        <h2 class="step-title">Prime — Apostrofen ' </h2>
+      </div>
+      <p class="step-intro">Ett apostrof-tecken efter bokstaven betyder <strong>motsols</strong> — raka motsatsen till basdrag. Uttalas "prime" på engelska (R-prime, U-prime, osv.).</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Drag</th><th>Uttal</th><th>Riktning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="move-xl" style="color:var(--col-accent2)">R'</span></td><td>"R prime"</td><td>Höger sida nedåt (motsols)</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-accent2)">L'</span></td><td>"L prime"</td><td>Vänster sida uppåt (motsols)</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-accent2)">U'</span></td><td>"U prime"</td><td>Övre lagret åt höger (motsols)</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-accent2)">D'</span></td><td>"D prime"</td><td>Nedre lagret åt vänster (motsols)</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-accent2)">F'</span></td><td>"F prime"</td><td>Framsida motsols</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-accent2)">B'</span></td><td>"B prime"</td><td>Baksida motsols</td></tr>
+        </tbody>
+      </table>
+
+      <div class="card highlight">
+        <div class="card-title">🔥 Sexy Move — Grundalgoritmens kärna</div>
+        <div class="card-body">
+          <p>Denna 4-drags sekvens är den vanligaste i kubsning. Memorera den tills det sitter i muskelminnet:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Sexy Move</div>
+            <div class="algo-moves" data-algo="R U R' U'"></div>
+          </div>
+          <p>Uttalas: "R, U, R-prime, U-prime". Används i F2L, OLL, PLL och nybörjarmetoden.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DUBBEL ===== -->
+    <section class="guide-section" id="dubbel">
+      <div class="step-header">
+        <span class="step-num">04</span>
+        <h2 class="step-title">Dubbeldrag — 2</h2>
+      </div>
+      <p class="step-intro">Siffran <strong>2</strong> efter en bokstav betyder 180° rotation — två drag i rad. Riktningen spelar ingen roll eftersom resultatet är identiskt.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Drag</th><th>Grader</th><th>Beskrivning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="move-xl" style="color:var(--col-blue)">R2</span></td><td>180°</td><td>Höger sida 180° — vad som var uppe är nu nere</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-blue)">U2</span></td><td>180°</td><td>Övre lagret 180°</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-blue)">F2</span></td><td>180°</td><td>Framsida 180°</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-blue)">D2</span></td><td>180°</td><td>Nedre lagret 180°</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-blue)">L2</span></td><td>180°</td><td>Vänstersida 180°</td></tr>
+          <tr><td><span class="move-xl" style="color:var(--col-blue)">B2</span></td><td>180°</td><td>Baksida 180°</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== WIDE ===== -->
+    <section class="guide-section" id="wide">
+      <div class="step-header">
+        <span class="step-num">05</span>
+        <h2 class="step-title">Wide-drag — Rw / r</h2>
+      </div>
+      <p class="step-intro">Wide-drag rör <strong>två lager simultant</strong> — det yttre lagret plus det innanförliggande. Skrivs antingen som <code style="font-family:var(--ff-mono);color:var(--col-accent)">Rw</code> eller som lowercase <code style="font-family:var(--ff-mono);color:var(--col-accent)">r</code>.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Notation</th><th>Alternativ</th><th>Beskrivning</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="move-xl">Rw</span></td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">r</td>
+            <td>Höger sida + M-skivan (båda) medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl">Lw</span></td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">l</td>
+            <td>Vänster sida + M-skivan medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl">Uw</span></td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">u</td>
+            <td>Övre lager + E-skivan medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl">Dw</span></td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">d</td>
+            <td>Nedre lager + E-skivan medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl">Fw</span></td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">f</td>
+            <td>Framsida + S-skivan medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl">Bw</span></td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">b</td>
+            <td>Baksida + S-skivan medsols</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card">
+        <div class="card-title">📝 Exempel med wide-drag</div>
+        <div class="card-body">
+          <p>Wide-drag används ofta i avancerade algoritmer, t.ex. OLL 57:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">OLL 57 (använder r / r')</div>
+            <div class="algo-moves" data-algo="R U R' U' M' U R U' r'"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKIVOR ===== -->
+    <section class="guide-section" id="skivor">
+      <div class="step-header">
+        <span class="step-num">06</span>
+        <h2 class="step-title">Skivdrag — M, S, E</h2>
+      </div>
+      <p class="step-intro">Skivdrag rör mellanskivorna utan att röra de yttre lagren. Används i algoritmer som Z-perm och H-perm.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Symbol</th><th>Skiva</th><th>Riktning (som)</th><th>Beskrivning</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="move-xl">M</span></td>
+            <td>Middle</td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">L</td>
+            <td>Mellanskivan parallell med L/R, rör sig som L</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl">M'</span></td>
+            <td>Middle</td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">R</td>
+            <td>Mellanskivan rör sig som R</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl">M2</span></td>
+            <td>Middle</td>
+            <td>—</td>
+            <td>Mellanskivan 180°</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl">S</span></td>
+            <td>Standing</td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">F</td>
+            <td>Skivan parallell med F/B, rör sig som F</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl">E</span></td>
+            <td>Equatorial</td>
+            <td style="font-family:var(--ff-mono);color:var(--col-muted)">D</td>
+            <td>Ekvatorialskivan, rör sig som D</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card">
+        <div class="card-title">📝 Exempel — Z-perm och H-perm</div>
+        <div class="card-body">
+          <div class="algo-wrap">
+            <div class="algo-label">PLL Z-perm</div>
+            <div class="algo-moves" data-algo="M2 U M2 U M' U2 M2 U2 M' U2"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">PLL H-perm</div>
+            <div class="algo-moves" data-algo="M2 U M2 U2 M2 U M2"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ROTATIONER ===== -->
+    <section class="guide-section" id="rotationer">
+      <div class="step-header">
+        <span class="step-num">07</span>
+        <h2 class="step-title">Kubrotationer — x, y, z</h2>
+      </div>
+      <p class="step-intro">Kubrotationer roterar <strong>hela kuben</strong> utan att ändra någon pjäs. Används för att byta perspektiv under lösning.</p>
+
+      <table class="notation-table">
+        <thead>
+          <tr><th>Symbol</th><th>Axel</th><th>Rör sig som</th><th>Resultat</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="move-xl" style="color:var(--col-muted)">x</span></td>
+            <td>R-axeln</td>
+            <td style="font-family:var(--ff-mono)">R</td>
+            <td>Hela kuben tippar framåt</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl" style="color:var(--col-muted)">x'</span></td>
+            <td>R-axeln</td>
+            <td style="font-family:var(--ff-mono)">R'</td>
+            <td>Hela kuben tippar bakåt</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl" style="color:var(--col-muted)">y</span></td>
+            <td>U-axeln</td>
+            <td style="font-family:var(--ff-mono)">U</td>
+            <td>Hela kuben vrider åt vänster</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl" style="color:var(--col-muted)">y'</span></td>
+            <td>U-axeln</td>
+            <td style="font-family:var(--ff-mono)">U'</td>
+            <td>Hela kuben vrider åt höger</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl" style="color:var(--col-muted)">z</span></td>
+            <td>F-axeln</td>
+            <td style="font-family:var(--ff-mono)">F</td>
+            <td>Hela kuben rullar medsols</td>
+          </tr>
+          <tr>
+            <td><span class="move-xl" style="color:var(--col-muted)">z'</span></td>
+            <td>F-axeln</td>
+            <td style="font-family:var(--ff-mono)">F'</td>
+            <td>Hela kuben rullar motsols</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card">
+        <div class="card-title">📝 Exempel — A-perm med x-rotation</div>
+        <div class="card-body">
+          <div class="algo-wrap">
+            <div class="algo-label">PLL A-perm (a) — använder x och x'</div>
+            <div class="algo-moves" data-algo="x R' U R' D2 R U' R' D2 R2 x'"></div>
+          </div>
+          <p>x i början tippar kuben framåt, x' i slutet tippar tillbaka. Kuben är i samma orientering när algoritmen är klar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FÄRGER ===== -->
+    <section class="guide-section" id="farger">
+      <div class="step-header">
+        <span class="step-num">08</span>
+        <h2 class="step-title">Standardfärger</h2>
+      </div>
+      <p class="step-intro">Rubik's Cube har en standardiserad färgordning. Mittenpjäserna definierar varje sidas färg och rör sig aldrig relativt varandra.</p>
+
+      <div class="color-block">
+        <div class="color-face">
+          <div class="color-swatch-big" style="background:var(--cube-white);border-color:#888"></div>
+          <div class="color-face-letter">U</div>
+          <div class="color-face-name">Vit<br/>Övre</div>
+        </div>
+        <div class="color-face" style="background:rgba(249,200,66,0.04)">
+          <div class="color-swatch-big" style="background:var(--cube-yellow)"></div>
+          <div class="color-face-letter">D</div>
+          <div class="color-face-name">Gul<br/>Nedre</div>
+        </div>
+        <div class="color-face">
+          <div class="color-swatch-big" style="background:var(--cube-red)"></div>
+          <div class="color-face-letter">F</div>
+          <div class="color-face-name">Röd<br/>Fram</div>
+        </div>
+        <div class="color-face">
+          <div class="color-swatch-big" style="background:var(--cube-orange)"></div>
+          <div class="color-face-letter">B</div>
+          <div class="color-face-name">Orange<br/>Bak</div>
+        </div>
+        <div class="color-face">
+          <div class="color-swatch-big" style="background:var(--cube-blue)"></div>
+          <div class="color-face-letter">R</div>
+          <div class="color-face-name">Blå<br/>Höger</div>
+        </div>
+        <div class="color-face">
+          <div class="color-swatch-big" style="background:var(--cube-green)"></div>
+          <div class="color-face-letter">L</div>
+          <div class="color-face-name">Grön<br/>Vänster</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1.5rem">
+        <div class="card-title">↔️ Motstående par</div>
+        <div class="card-body">
+          <p>Dessa tre par av färger sitter alltid mitt emot varandra: <strong>Vit ↔ Gul</strong>, <strong>Röd ↔ Orange</strong>, <strong>Blå ↔ Grön</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TIPS ===== -->
+    <section class="guide-section" id="tips">
+      <div class="step-header">
+        <span class="step-num">09</span>
+        <h2 class="step-title">Lästips för algoritmer</h2>
+      </div>
+      <p class="step-intro">Några praktiska råd för att lära sig läsa och memorera algoritmer snabbare.</p>
+
+      <div class="tip-grid">
+        <div class="tip-item">
+          <h4>Vänster till höger</h4>
+          <p>Utför alltid drag i den ordning de skrivs — från vänster till höger, ett drag i taget. Pausa inte mitt i.</p>
+        </div>
+        <div class="tip-item">
+          <h4>Orientera rätt först</h4>
+          <p>Varje algoritm förutsätter en specifik orientering. Läs guidens anvisning om hur kuben ska hållas innan du kör.</p>
+        </div>
+        <div class="tip-item">
+          <h4>Uttal hjälper minnet</h4>
+          <p>Lär dig algoritmer som meningar: "R U R-prime U-prime". Uttal + muskelminne ger snabb memorering.</p>
+        </div>
+        <div class="tip-item">
+          <h4>Parenteser = grupper</h4>
+          <p><code style="font-family:var(--ff-mono);font-size:.85rem;color:var(--col-accent)">(R U R' U') ×3</code> = kör sekvensen 3 gånger. Parenteser visar repetition.</p>
+        </div>
+        <div class="tip-item">
+          <h4>Träna långsamt</h4>
+          <p>Kör ny algoritm långsamt tills fingersättningen sitter. Hastigheten kommer automatiskt med repetition — forcera den inte.</p>
+        </div>
+        <div class="tip-item">
+          <h4>AUF — Adjust U Face</h4>
+          <p>AUF = ett U/U'/U2-drag för att justera U-lagret before eller efter en algoritm. Räknas som ett separat steg.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EXEMPEL ===== -->
+    <section class="guide-section" id="exempel">
+      <div class="step-header">
+        <span class="step-num">10</span>
+        <h2 class="step-title">Vanliga algoritmer</h2>
+      </div>
+      <p class="step-intro">Referenssamling med de viktigaste algoritmerna du bör kunna utantill.</p>
+
+      <div class="card">
+        <div class="card-title">Nybörjare — Måste kunna</div>
+        <div class="card-body">
+          <div class="algo-wrap">
+            <div class="algo-label">Sexy Move (F2L grunden)</div>
+            <div class="algo-moves" data-algo="R U R' U'"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">Mellanlager — höger</div>
+            <div class="algo-moves" data-algo="U R U' R' U' F' U F"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">Mellanlager — vänster</div>
+            <div class="algo-moves" data-algo="U' L' U L U F U' F'"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">OLL Kors</div>
+            <div class="algo-moves" data-algo="F R U R' U' F'"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">Hörn permutation</div>
+            <div class="algo-moves" data-algo="U R U' L' U R' U' L"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">Hörn orientering</div>
+            <div class="algo-moves" data-algo="R' D' R D"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">CFOP — Viktiga</div>
+        <div class="card-body">
+          <div class="algo-wrap">
+            <div class="algo-label">Sune (OLL 21)</div>
+            <div class="algo-moves" data-algo="R U R' U R U2 R'"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">Anti-Sune (OLL 22)</div>
+            <div class="algo-moves" data-algo="R U2 R' U' R U' R'"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">T-perm (PLL)</div>
+            <div class="algo-moves" data-algo="R U R' U' R' F R2 U' R' U' R U R' F'"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">U-perm (a)</div>
+            <div class="algo-moves" data-algo="R U' R U R U R U' R' U' R2"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">Y-perm (PLL)</div>
+            <div class="algo-moves" data-algo="F R U' R' U' R U R' F' R U R' U' R' F R F'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">2×2 OLL + PBL</div>
+        <div class="card-body">
+          <div class="algo-wrap">
+            <div class="algo-label">Sune 2×2 OLL</div>
+            <div class="algo-moves" data-algo="R U R' U R U2 R'"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">PBL U-perm (a)</div>
+            <div class="algo-moves" data-algo="R U' R U R U R U' R' U' R2"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">PBL A-perm (a)</div>
+            <div class="algo-moves" data-algo="x R' U R' D2 R U' R' D2 R2 x'"></div>
+          </div>
+          <div class="algo-wrap">
+            <div class="algo-label">PBL E-perm</div>
+            <div class="algo-moves" data-algo="x' R U' R' D R U R' D' R U R' D R U' R' D' x"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <span class="footer-copy">KUBGUIDE © 2025</span>
+  <nav class="footer-nav">
+    <a href="../index.html">Hem</a>
+    <a href="3x3.html">3×3</a>
+    <a href="2x2.html">2×2</a>
+    <a href="notation.html">Notation</a>
+  </nav>
+</footer>
+
+<script src="../js/cube3d.js"></script>
+<script src="../js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const c = document.getElementById('notationCube');
+  if (c) {
+    const cube = new RubiksCube3D(c, { size: 3, cellSize: 30, rotX: -0.45, rotY: 0.72 });
+    cube.startAutoRotate(0.005);
+  }
+});
+</script>
+</body>
+</html>

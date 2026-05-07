@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>2×2 Guide — KUBGUIDE</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .page-hero { --page-accent: var(--col-accent2); }
+
+    /* OLL case diagram grid for 2x2 — 2 stickers per row */
+    .oll-diagram {
+      display: inline-grid;
+      grid-template-columns: repeat(2, 2.2rem);
+      gap: 3px;
+      background: var(--col-bg);
+      border: 2px solid var(--col-border2);
+      padding: 4px;
+      border-radius: var(--radius);
+    }
+    .oll-diagram .fc {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 2px;
+    }
+
+    /* PBL headlights diagram */
+    .pbl-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .pbl-row {
+      display: flex;
+      gap: 3px;
+    }
+    .pbl-cell {
+      width: 1.6rem; height: 1.6rem;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .case-card-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      height: 100%;
+    }
+
+    .algo-compact {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      color: var(--col-text);
+      background: var(--col-bg);
+      border: 1px solid var(--col-border);
+      padding: 0.5rem 0.7rem;
+      border-radius: 3px;
+      line-height: 1.6;
+      word-break: break-all;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 99px;
+      border: 1px solid currentColor;
+    }
+    .badge-pill.beginner { color: var(--col-green); }
+    .badge-pill.advanced { color: var(--col-accent2); }
+
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--col-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1.2rem 1.5rem;
+      background: var(--col-surface);
+      border-bottom: 1px solid var(--col-border);
+      transition: background var(--transition);
+    }
+    .flow-step:last-child { border-bottom: none; }
+    .flow-step:hover { background: var(--col-raised); }
+    .flow-step-num {
+      font-family: var(--ff-mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--col-accent);
+      line-height: 1;
+      min-width: 2rem;
+    }
+    .flow-step-content strong {
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 0.25rem;
+    }
+    .flow-step-content p {
+      font-size: 0.82rem;
+      color: var(--col-muted);
+      line-height: 1.55;
+    }
+
+    .oll-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--col-border);
+      border: 1px solid var(--col-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+    .oll-card {
+      background: var(--col-surface);
+      padding: 1.4rem 1.4rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      transition: background var(--transition);
+    }
+    .oll-card:hover { background: var(--col-raised); }
+    .oll-card-top {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .oll-card-info { flex: 1; }
+    .oll-card-name {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--col-accent);
+    }
+    .oll-card-hint {
+      font-size: 0.78rem;
+      color: var(--col-muted);
+      margin-top: 0.2rem;
+      line-height: 1.45;
+    }
+
+    .pbl-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--col-border);
+      border: 1px solid var(--col-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+    .pbl-card {
+      background: var(--col-surface);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      transition: background var(--transition);
+    }
+    .pbl-card:hover { background: var(--col-raised); }
+    .pbl-card-name {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cube-blue);
+    }
+    .pbl-card.solved .pbl-card-name { color: var(--col-green); }
+    .pbl-card-desc {
+      font-size: 0.82rem;
+      color: var(--col-muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="../index.html" class="nav-brand">
+    <div class="brand-cube"><span></span><span></span><span></span><span></span></div>
+    KUBGUIDE
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Hem</a></li>
+    <li><a href="3x3.html">3×3 Kub</a></li>
+    <li><a href="2x2.html" class="active">2×2 Kub</a></li>
+    <li><a href="notation.html">Notation</a></li>
+  </ul>
+  <button class="nav-toggle">☰</button>
+</nav>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="page-breadcrumb">
+        <a href="../index.html">Hem</a>
+        <span>/</span>
+        <span>2×2 Pocket Cube</span>
+      </div>
+      <h1 class="page-title">2×2 Pocket<br/><em style="font-style:italic">Cube</em></h1>
+      <p class="page-sub">Bara 8 hörnpjäser — inga kanter, inga mittenstycken. Lös med nybörjarmetoden eller lär dig OLL + PBL för snabbare tider.</p>
+      <div class="page-tabs">
+        <a href="#nybörjare" class="page-tab active">Nybörjare</a>
+        <a href="#oll">OLL — 7 fall</a>
+        <a href="#pbl">PBL — 5 fall</a>
+      </div>
+    </div>
+    <div class="page-hero-canvas">
+      <!-- Correct 2x2 cube: size=2, 4 stickers per face -->
+      <canvas id="pageHeroCube2x2" width="220" height="220"></canvas>
+    </div>
+  </div>
+</header>
+
+<!-- GUIDE -->
+<div class="guide-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="guide-sidebar">
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Nybörjare</div>
+      <ul class="sidebar-nav">
+        <li><a href="#nybörjare">Introduktion</a></li>
+        <li><a href="#b1">1 — Vita lagret</a></li>
+        <li><a href="#b2">2 — Orientera gult</a></li>
+        <li><a href="#b3">3 — Placera hörnen</a></li>
+        <li><a href="#b4">4 — Vänd hörnen</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Avancerat</div>
+      <ul class="sidebar-nav">
+        <li><a href="#oll">OLL — Introduktion</a></li>
+        <li><a href="#oll-cases">OLL — Alla 7 fall</a></li>
+        <li><a href="#pbl">PBL — Introduktion</a></li>
+        <li><a href="#pbl-cases">PBL — Alla 5 fall</a></li>
+        <li><a href="#oll-pbl-flow">OLL + PBL Flöde</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="guide-main">
+
+    <!-- ===== INTRO ===== -->
+    <section class="guide-section" id="nybörjare">
+      <div class="step-header">
+        <span class="step-num">GUIDE</span>
+        <h2 class="step-title">2×2 Nybörjarmetoden</h2>
+      </div>
+      <p class="step-intro">2×2-kuben har bara 8 hörnpjäser — inga kanter och inga mittenstycken. Det betyder att varje pjäs har 3 sidor och det finns bara hörnpositioner. Du kan lösa den med en modifierad version av 3×3-metoden.</p>
+
+      <div class="canvas-embed">
+        <canvas id="cube2x2_intro" width="260" height="260"></canvas>
+        <span class="canvas-caption">2×2 Pocket Cube · 4 rutor per sida · Dra för att rotera</span>
+      </div>
+
+      <div class="card highlight">
+        <div class="card-title">💡 Viktigt att veta om 2×2</div>
+        <div class="card-body">
+          <p>Eftersom det inte finns några mittenstycken har kuben <strong>inget fast referensläge</strong> — alla positioner är relativa. Du kan välja vilket hörn som helst som din "startpunkt" och bygga därifrån.</p>
+          <p>Nybörjarmetoden tar 4 steg och kräver bara <strong>2–3 algoritmer</strong> att memorera.</p>
+        </div>
+      </div>
+
+      <div class="progress-track">
+        <a href="#b1" class="progress-step active"><span class="progress-n">01</span><span class="progress-label">Vita lagret</span></a>
+        <a href="#b2" class="progress-step"><span class="progress-n">02</span><span class="progress-label">Orientera gult</span></a>
+        <a href="#b3" class="progress-step"><span class="progress-n">03</span><span class="progress-label">Placera hörnen</span></a>
+        <a href="#b4" class="progress-step"><span class="progress-n">04</span><span class="progress-label">Vänd hörnen</span></a>
+      </div>
+    </section>
+
+    <!-- ===== STEG 1 ===== -->
+    <section class="guide-section" id="b1">
+      <div class="step-header">
+        <span class="step-num">01</span>
+        <h2 class="step-title">Vita lagret</h2>
+      </div>
+      <p class="step-intro">Placera de fyra vita hörnpjäserna för att skapa ett helt vitt lager. Det vita lagret löses <strong>intuitivt</strong> — ingen algoritm behövs.</p>
+
+      <div class="card">
+        <div class="card-title">🎯 Mål</div>
+        <div class="card-body">
+          <p>Alla 4 stickers på U-sidan (2×2 = 4 rutor) ska vara vita, och varje hörns sidofärger ska matcha sina respektive sidor:</p>
+          <div style="display:flex; gap:2rem; align-items:flex-start; flex-wrap:wrap; margin-top:1rem">
+            <div>
+              <div class="oll-diagram">
+                <div class="fc fc-W"></div><div class="fc fc-W"></div>
+                <div class="fc fc-W"></div><div class="fc fc-W"></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--col-muted);margin-top:.4rem;font-family:var(--ff-mono)">U-sida (4 vita)</div>
+            </div>
+            <div class="card-body" style="flex:1; min-width:200px">
+              <p>Observera: 2×2 har 4 rutor per sida, inte 9. Varje sida består av de 4 hörnens stickersfärger.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📌 Strategi</div>
+        <div class="card-body">
+          <ol>
+            <li>Håll ett vitt hörn i UFR-positionen som referenspunkt</li>
+            <li>Hitta de andra vita hörnen och placera dem ett i taget</li>
+            <li>Vrid D-lagret för att manövrera hörnen under sin målposition</li>
+            <li>Kör <strong>R U R' U'</strong> tills hörnet sitter rätt</li>
+          </ol>
+          <div class="algo-wrap" style="margin-top:1rem">
+            <div class="algo-label">Sätt in hörn (upprepa 1–5 gånger)</div>
+            <div class="algo-moves" data-algo="R U R' U'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">✅ Klart med steg 1?</div>
+        <div class="card-body">
+          <p>Vrid kuben upp-och-ned. Nu är gul sida upp och du arbetar med bottenlagret resten av guiden.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 2 ===== -->
+    <section class="guide-section" id="b2">
+      <div class="step-header">
+        <span class="step-num">02</span>
+        <h2 class="step-title">Orientera gula hörnen</h2>
+      </div>
+      <p class="step-intro">Vänd kuben — nu är gul sida upp. Målet är att få alla 4 gula stickers att peka uppåt. Vi använder <strong>Sune-algoritmen</strong>.</p>
+
+      <div class="card">
+        <div class="card-title">🔍 Identifiera ditt läge</div>
+        <div class="card-body">
+          <p>Titta uppifrån och räkna hur många gula stickers som redan pekar uppåt (0–4):</p>
+          <div style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:1rem; align-items:flex-end">
+            <div style="text-align:center">
+              <div class="oll-diagram">
+                <div class="fc fc-X"></div><div class="fc fc-X"></div>
+                <div class="fc fc-X"></div><div class="fc fc-X"></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--col-muted);margin-top:.4rem;font-family:var(--ff-mono)">0 gula → kör 2×</div>
+            </div>
+            <div style="text-align:center">
+              <div class="oll-diagram">
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+                <div class="fc fc-X"></div><div class="fc fc-X"></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--col-muted);margin-top:.4rem;font-family:var(--ff-mono)">1 gul → kör 1×</div>
+            </div>
+            <div style="text-align:center">
+              <div class="oll-diagram">
+                <div class="fc fc-Y"></div><div class="fc fc-X"></div>
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--col-muted);margin-top:.4rem;font-family:var(--ff-mono)">2 diagonalt → kör 2×</div>
+            </div>
+            <div style="text-align:center">
+              <div class="oll-diagram">
+                <div class="fc fc-Y"></div><div class="fc fc-Y"></div>
+                <div class="fc fc-Y"></div><div class="fc fc-Y"></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--col-muted);margin-top:.4rem;font-family:var(--ff-mono)">4 gula ✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Sune — Orienterar gula hörn medsols</div>
+        <div class="card-body">
+          <p>Håll kuben med gul sida upp. Kör Sune och titta sedan hur många gula stickers är uppåt. Rotera U och kör igen om det behövs.</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Sune</div>
+            <div class="algo-moves" data-algo="R U R' U R U2 R'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Anti-Sune — Orienterar mot</div>
+        <div class="card-body">
+          <p>Ibland går det snabbare med Anti-Sune (spegeln av Sune):</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Anti-Sune</div>
+            <div class="algo-moves" data-algo="R U2 R' U' R U' R'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">✅ Klart?</div>
+        <div class="card-body">
+          <p>Alla 4 gula stickers ska nu peka uppåt. Hörnen behöver inte vara på rätt platser ännu.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 3 ===== -->
+    <section class="guide-section" id="b3">
+      <div class="step-header">
+        <span class="step-num">03</span>
+        <h2 class="step-title">Placera hörnpjäserna</h2>
+      </div>
+      <p class="step-intro">Nu ska hörnpjäserna placeras på rätt positioner. De behöver inte vara rätt orienterade — vi fixar det i sista steget.</p>
+
+      <div class="card">
+        <div class="card-title">📌 Identifiera ett korrekt hörn</div>
+        <div class="card-body">
+          <p>Titta på de 4 hörnpjäserna. Ett hörn är "rätt placerat" om det innehåller rätt 3 färger för sin position (oavsett orientering). Håll det hörnet i FRU-positionen.</p>
+          <p style="margin-top:.5rem">Om <em>inget</em> hörn sitter rätt — kör algoritmen nedan en gång med valfri orientering, sedan hittar du ett rätt hörn.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Algoritm — Cykla 3 hörn</div>
+        <div class="card-body">
+          <p>Håll det korrekta hörnet i FRU och kör. Algoritmen roterar de tre <em>andra</em> hörnpjäserna medsols (sett uppifrån):</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Cykla 3 hörn medsols</div>
+            <div class="algo-moves" data-algo="U R U' L' U R' U' L"></div>
+          </div>
+          <p>Kör tills alla 4 hörn är på rätt platser (1–3 gånger). Du kan behöva rotera U emellan för att hitta nästa rätta hörn.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEG 4 ===== -->
+    <section class="guide-section" id="b4">
+      <div class="step-header">
+        <span class="step-num">04</span>
+        <h2 class="step-title">Vänd hörnpjäserna</h2>
+      </div>
+      <p class="step-intro">Sista steget — orientera de hörn som fortfarande är felvända. Under detta steg ser kuben förstörd ut. <strong>Det är helt normalt.</strong></p>
+
+      <div class="card warning">
+        <div class="card-title">⚠️ KRITISK REGEL</div>
+        <div class="card-body">
+          <p><strong>Flytta ALDRIG U-lagret mitt i en sekvens.</strong> Kör hela <code style="font-family:var(--ff-mono);color:var(--col-accent)">R' D' R D</code>-sekvensen tills det aktuella hörnet är rätt. Flytta sedan U-lagret till nästa felaktiga hörn. Upprepa. Om du avbryter mitt i sekvensen måste du börja om.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Algoritm — Vrid hörn medsols</div>
+        <div class="card-body">
+          <p>Välj ett felvänt hörn och håll det i FRU. Kör sekvensen:</p>
+          <div class="algo-wrap">
+            <div class="algo-label">Vrid FRU-hörnet medsols</div>
+            <div class="algo-moves" data-algo="R' D' R D"></div>
+          </div>
+          <table style="width:100%;border-collapse:collapse;margin-top:1rem;font-size:.82rem">
+            <tr style="border-bottom:1px solid var(--col-border)">
+              <td style="padding:.5rem .5rem .5rem 0;color:var(--col-muted);font-weight:500">2 gånger</td>
+              <td style="padding:.5rem;color:var(--col-muted)">Vrider hörnet medsols (gul pekar mot dig)</td>
+            </tr>
+            <tr>
+              <td style="padding:.5rem .5rem .5rem 0;color:var(--col-muted);font-weight:500">4 gånger</td>
+              <td style="padding:.5rem;color:var(--col-muted)">Vrider hörnet motsols (gul pekar åt höger)</td>
+            </tr>
+          </table>
+          <p style="margin-top:1rem">Flytta U till nästa felaktiga hörn (inte hela kuben!) och upprepa tills alla hörn är rätt orienterade.</p>
+        </div>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">🎉 2×2-kuben är löst!</div>
+        <div class="card-body">
+          <p>Bra jobbat! Nu kan du lära dig OLL + PBL nedan för att lösa kuben snabbare och mer effektivt.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== OLL INTRO ===== -->
+    <section class="guide-section" id="oll">
+      <div class="step-header">
+        <span class="step-num advanced">OLL</span>
+        <h2 class="step-title">OLL — Orientation of Last Layer</h2>
+      </div>
+      <p class="step-intro">OLL på 2×2 orienterar alla 4 hörnpjäser i ett enda steg — alla gula uppåt. Det finns <strong>7 distinkta OLL-fall</strong> (exklusive det redan lösta fallet). Lär dig dem alla för att bli snabbare.</p>
+
+      <div class="card">
+        <div class="card-title">📖 Hur OLL fungerar på 2×2</div>
+        <div class="card-body">
+          <p>Till skillnad från 3×3 har 2×2 inga kantpjäser — vi orienterar bara de 4 hörnpjäserna. Titta på U-sidan och identifiera hur många och vilka hörn som har gult uppåt. Det avgör vilket OLL-fall du har.</p>
+          <p style="margin-top:.7rem">Håll alltid kuben med det <strong>vita lagret nere</strong> och <strong>gul sida upp</strong> när du identifierar och kör OLL.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔍 Identifiera ditt OLL-fall</div>
+        <div class="card-body">
+          <div style="display:flex; flex-direction:column; gap:.6rem; margin-top:.3rem">
+            <div style="display:flex; align-items:center; gap:1rem; padding:.7rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:3px">
+              <div class="oll-diagram" style="flex-shrink:0">
+                <div class="fc fc-Y"></div><div class="fc fc-Y"></div>
+                <div class="fc fc-Y"></div><div class="fc fc-Y"></div>
+              </div>
+              <div><strong style="font-size:.85rem">4 gula uppåt</strong><br/><span style="font-size:.78rem;color:var(--col-muted)">OLL Skip — Klart! Gå direkt till PBL.</span></div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1rem; padding:.7rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:3px">
+              <div class="oll-diagram" style="flex-shrink:0">
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+              </div>
+              <div><strong style="font-size:.85rem">2 gula på samma sida</strong><br/><span style="font-size:.78rem;color:var(--col-muted)">Headlights-fall — OLL 3 eller OLL 4</span></div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1rem; padding:.7rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:3px">
+              <div class="oll-diagram" style="flex-shrink:0">
+                <div class="fc fc-Y"></div><div class="fc fc-X"></div>
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+              </div>
+              <div><strong style="font-size:.85rem">2 gula diagonalt</strong><br/><span style="font-size:.78rem;color:var(--col-muted)">Diagonal — OLL 5 eller OLL 6</span></div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1rem; padding:.7rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:3px">
+              <div class="oll-diagram" style="flex-shrink:0">
+                <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+                <div class="fc fc-X"></div><div class="fc fc-X"></div>
+              </div>
+              <div><strong style="font-size:.85rem">1 gul uppåt</strong><br/><span style="font-size:.78rem;color:var(--col-muted)">Sune-fall — OLL 1 eller OLL 2</span></div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1rem; padding:.7rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:3px">
+              <div class="oll-diagram" style="flex-shrink:0">
+                <div class="fc fc-X"></div><div class="fc fc-X"></div>
+                <div class="fc fc-X"></div><div class="fc fc-X"></div>
+              </div>
+              <div><strong style="font-size:.85rem">0 gula uppåt</strong><br/><span style="font-size:.78rem;color:var(--col-muted)">Alla fel — OLL 7</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== OLL CASES ===== -->
+    <section class="guide-section" id="oll-cases">
+      <div class="step-header">
+        <span class="step-num advanced">7 FALL</span>
+        <h2 class="step-title">OLL — Alla fall</h2>
+      </div>
+      <p class="step-intro">Diagrammen visar U-sidan uppifrån. Gult = rätt orienterat (gul uppåt). Grått = felaktigt orienterat hörn.</p>
+
+      <div class="oll-grid">
+
+        <!-- OLL 1 Sune -->
+        <div class="oll-card">
+          <div class="oll-card-top">
+            <div class="oll-diagram" style="flex-shrink:0">
+              <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+              <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+            </div>
+            <div class="oll-card-info">
+              <div class="oll-card-name">OLL 1 — Sune</div>
+              <div class="oll-card-hint">Gult i UBL + UFR. Placera UFR-hörnet mot dig.</div>
+            </div>
+          </div>
+          <div class="algo-compact">R U R' U R U2 R'</div>
+        </div>
+
+        <!-- OLL 2 Anti-Sune -->
+        <div class="oll-card">
+          <div class="oll-card-top">
+            <div class="oll-diagram" style="flex-shrink:0">
+              <div class="fc fc-Y"></div><div class="fc fc-X"></div>
+              <div class="fc fc-Y"></div><div class="fc fc-X"></div>
+            </div>
+            <div class="oll-card-info">
+              <div class="oll-card-name">OLL 2 — Anti-Sune</div>
+              <div class="oll-card-hint">Spegeln av Sune. Gult i UFL + UBR.</div>
+            </div>
+          </div>
+          <div class="algo-compact">R U2 R' U' R U' R'</div>
+        </div>
+
+        <!-- OLL 3 Headlights -->
+        <div class="oll-card">
+          <div class="oll-card-top">
+            <div class="oll-diagram" style="flex-shrink:0">
+              <div class="fc fc-X"></div><div class="fc fc-X"></div>
+              <div class="fc fc-Y"></div><div class="fc fc-Y"></div>
+            </div>
+            <div class="oll-card-info">
+              <div class="oll-card-name">OLL 3 — Headlights</div>
+              <div class="oll-card-hint">2 gula mot dig (nedre rad). Håll mot dig.</div>
+            </div>
+          </div>
+          <div class="algo-compact">R2 U2 R U2 R2</div>
+        </div>
+
+        <!-- OLL 4 Headlights back -->
+        <div class="oll-card">
+          <div class="oll-card-top">
+            <div class="oll-diagram" style="flex-shrink:0">
+              <div class="fc fc-Y"></div><div class="fc fc-Y"></div>
+              <div class="fc fc-X"></div><div class="fc fc-X"></div>
+            </div>
+            <div class="oll-card-info">
+              <div class="oll-card-name">OLL 4 — Headlights Bak</div>
+              <div class="oll-card-hint">2 gula bort från dig (övre rad).</div>
+            </div>
+          </div>
+          <div class="algo-compact">F R U R' U' F'</div>
+        </div>
+
+        <!-- OLL 5 Diagonal -->
+        <div class="oll-card">
+          <div class="oll-card-top">
+            <div class="oll-diagram" style="flex-shrink:0">
+              <div class="fc fc-Y"></div><div class="fc fc-X"></div>
+              <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+            </div>
+            <div class="oll-card-info">
+              <div class="oll-card-name">OLL 5 — Diagonal</div>
+              <div class="oll-card-hint">Gult i UFL och UBR diagonalt.</div>
+            </div>
+          </div>
+          <div class="algo-compact">F R U R' U' R U R' U' F'</div>
+        </div>
+
+        <!-- OLL 6 Anti-Diagonal -->
+        <div class="oll-card">
+          <div class="oll-card-top">
+            <div class="oll-diagram" style="flex-shrink:0">
+              <div class="fc fc-X"></div><div class="fc fc-Y"></div>
+              <div class="fc fc-Y"></div><div class="fc fc-X"></div>
+            </div>
+            <div class="oll-card-info">
+              <div class="oll-card-name">OLL 6 — Anti-Diagonal</div>
+              <div class="oll-card-hint">Gult i UFR och UBL diagonalt.</div>
+            </div>
+          </div>
+          <div class="algo-compact">R U R' U' R U2 R' U R U' R'</div>
+        </div>
+
+        <!-- OLL 7 None -->
+        <div class="oll-card">
+          <div class="oll-card-top">
+            <div class="oll-diagram" style="flex-shrink:0">
+              <div class="fc fc-X"></div><div class="fc fc-X"></div>
+              <div class="fc fc-X"></div><div class="fc fc-X"></div>
+            </div>
+            <div class="oll-card-info">
+              <div class="oll-card-name">OLL 7 — Ingen gul</div>
+              <div class="oll-card-hint">Alla 4 hörn felvända. Valfri orientering.</div>
+            </div>
+          </div>
+          <div class="algo-compact">R U R' U' R' F R F' U2 R U R' U R U2 R'</div>
+        </div>
+
+        <!-- OLL 0 Skip -->
+        <div class="oll-card" style="border-left: 3px solid var(--col-green)">
+          <div class="oll-card-top">
+            <div class="oll-diagram" style="flex-shrink:0">
+              <div class="fc fc-Y"></div><div class="fc fc-Y"></div>
+              <div class="fc fc-Y"></div><div class="fc fc-Y"></div>
+            </div>
+            <div class="oll-card-info">
+              <div class="oll-card-name" style="color:var(--col-green)">OLL Skip</div>
+              <div class="oll-card-hint">Alla 4 gula upp. Gå direkt till PBL!</div>
+            </div>
+          </div>
+          <div class="algo-compact" style="color:var(--col-green)">Ingen algoritm — gå till PBL</div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== PBL INTRO ===== -->
+    <section class="guide-section" id="pbl">
+      <div class="step-header">
+        <span class="step-num method">PBL</span>
+        <h2 class="step-title">PBL — Permutation of Both Layers</h2>
+      </div>
+      <p class="step-intro">PBL är avancerad 2×2-lösnings sista steg — efter OLL permuterar PBL <strong>alla 8 hörn simultant</strong>. Istället för att lösa ett lager i taget fixar du hela kuben på en gång. Det finns <strong>5 PBL-fall</strong>.</p>
+
+      <div class="card">
+        <div class="card-title">📖 Vad är PBL?</div>
+        <div class="card-body">
+          <p>PBL (Permutation of Both Layers) används av 2×2 speedcubers. Till skillnad från nybörjarmetoden där du löser vita lagret, sedan gula hörnens position separat, löser PBL <em>alla positioner</em> i en enda fas.</p>
+          <p style="margin-top:.7rem">PBL-fallen identifieras med <strong>headlights-metoden</strong>: titta på om 2 hörn på samma sida har samma färg (= headlights).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔍 Headlights-metoden</div>
+        <div class="card-body">
+          <p>Titta på sidan av kuben. <strong>Headlights</strong> = 2 hörn på samma sida delar en färg:</p>
+          <div style="display:flex; flex-direction:column; gap:.6rem; margin-top:.8rem">
+            <div style="display:flex; align-items:flex-start; gap:1rem; padding:.8rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:3px">
+              <div>
+                <div class="pbl-row" style="gap:3px">
+                  <div class="pbl-cell" style="background:var(--cube-red)"></div>
+                  <div class="pbl-cell" style="background:var(--cube-red)"></div>
+                </div>
+                <div class="pbl-row" style="gap:3px;margin-top:3px">
+                  <div class="pbl-cell" style="background:var(--cube-blue)"></div>
+                  <div class="pbl-cell" style="background:var(--cube-green)"></div>
+                </div>
+              </div>
+              <div><strong style="font-size:.84rem">Headlights på framsidan</strong><br/><span style="font-size:.78rem;color:var(--col-muted)">Bägge övre hörnen visar samma färg.</span></div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:1rem; padding:.8rem; background:var(--col-bg); border:1px solid var(--col-border); border-radius:3px">
+              <div>
+                <div class="pbl-row" style="gap:3px">
+                  <div class="pbl-cell" style="background:var(--cube-red)"></div>
+                  <div class="pbl-cell" style="background:var(--cube-blue)"></div>
+                </div>
+                <div class="pbl-row" style="gap:3px;margin-top:3px">
+                  <div class="pbl-cell" style="background:var(--cube-green)"></div>
+                  <div class="pbl-cell" style="background:var(--cube-red)"></div>
+                </div>
+              </div>
+              <div><strong style="font-size:.84rem">Inga headlights</strong><br/><span style="font-size:.78rem;color:var(--col-muted)">Alla 4 synliga stickers olika. Mer sällsynt.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PBL CASES ===== -->
+    <section class="guide-section" id="pbl-cases">
+      <div class="step-header">
+        <span class="step-num method">5 FALL</span>
+        <h2 class="step-title">PBL — Alla fall</h2>
+      </div>
+      <p class="step-intro">Identifiera ditt fall med headlights-metoden och kör rätt algoritm. Kolla alltid båda lagren.</p>
+
+      <div class="pbl-grid">
+
+        <div class="pbl-card solved">
+          <div class="pbl-card-name">PBL 0 — Solved</div>
+          <div class="pbl-card-desc">Alla 8 hörn är på rätt plats. Kuben är löst — ingen algoritm behövs!</div>
+          <div class="algo-compact" style="color:var(--col-green)">✓ Klar — ingen algoritm</div>
+        </div>
+
+        <div class="pbl-card">
+          <div class="pbl-card-name">PBL 1 — U-perm (a)</div>
+          <div class="pbl-card-desc">Tre hörn i U-lagret roterar medsols. Headlights på baksidan av U-lagret, men inte framsidan. Det nedre lagret är korrekt.</div>
+          <div class="algo-wrap" style="margin:0">
+            <div class="algo-moves" data-algo="R U' R U R U R U' R' U' R2"></div>
+          </div>
+        </div>
+
+        <div class="pbl-card">
+          <div class="pbl-card-name">PBL 2 — U-perm (b)</div>
+          <div class="pbl-card-desc">Tre hörn i U-lagret roterar motsols. Headlights på framsidan av U-lagret. Det nedre lagret är korrekt.</div>
+          <div class="algo-wrap" style="margin:0">
+            <div class="algo-moves" data-algo="R2 U R U R' U' R' U' R' U R'"></div>
+          </div>
+        </div>
+
+        <div class="pbl-card">
+          <div class="pbl-card-name">PBL 3 — A-perm (a)</div>
+          <div class="pbl-card-desc">Diagonal hörn-swap i ett lager. Headlights i ett lager men diagonala. Båda lagren påverkas.</div>
+          <div class="algo-wrap" style="margin:0">
+            <div class="algo-moves" data-algo="x R' U R' D2 R U' R' D2 R2 x'"></div>
+          </div>
+        </div>
+
+        <div class="pbl-card">
+          <div class="pbl-card-name">PBL 4 — A-perm (b)</div>
+          <div class="pbl-card-desc">Spegel av A-perm (a). Diagonal i andra riktningen.</div>
+          <div class="algo-wrap" style="margin:0">
+            <div class="algo-moves" data-algo="x R2 D2 R U R' D2 R U' R x'"></div>
+          </div>
+        </div>
+
+        <div class="pbl-card">
+          <div class="pbl-card-name">PBL 5 — E-perm</div>
+          <div class="pbl-card-desc">Inga headlights — alla 4 sidofärger är unika. Det sällsyntaste PBL-fallet. Båda lagren har felvanda hörn.</div>
+          <div class="algo-wrap" style="margin:0">
+            <div class="algo-moves" data-algo="x' R U' R' D R U R' D' R U R' D R U' R' D' x"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== FLOW ===== -->
+    <section class="guide-section" id="oll-pbl-flow">
+      <div class="step-header">
+        <span class="step-num method">FLOW</span>
+        <h2 class="step-title">OLL + PBL — Komplett flöde</h2>
+      </div>
+      <p class="step-intro">Så här ser en komplett 2×2-lösning ut med den avancerade metoden, från blandad kub till löst.</p>
+
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-step-num">1</div>
+          <div class="flow-step-content">
+            <strong>Lösa det vita lagret intuitivt</strong>
+            <p>Välj ett hörn som referens. Placera de andra 3 vita hörnen med hjälp av D-vridningar och <strong>R U R' U'</strong>. Ingen algoritm krävs.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">2</div>
+          <div class="flow-step-content">
+            <strong>Vänd kuben — gul sida upp</strong>
+            <p>Rotera kuben 180° så att det vita lagret är nere. Alla följande steg körs med gul sida upp.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">3</div>
+          <div class="flow-step-content">
+            <strong>Identifiera OLL-fall</strong>
+            <p>Titta uppifrån. Räkna gula stickers och identifiera mönstret (0, 1, 2 diagonalt, 2 sida, eller 4). Matcha mot ett av de 7 fallen ovan.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">4</div>
+          <div class="flow-step-content">
+            <strong>Kör OLL-algoritmen</strong>
+            <p>Utför rätt OLL-algoritm. Alla 4 gula stickers ska nu peka uppåt. Om inte — identifiera igen och kör på nytt.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">5</div>
+          <div class="flow-step-content">
+            <strong>Identifiera PBL-fall</strong>
+            <p>Titta på sidorna med headlights-metoden. Vrid U-lagret och kolla om något läge ger färre påverkade hörn — välj det optimala läget.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">6</div>
+          <div class="flow-step-content">
+            <strong>Kör PBL-algoritmen</strong>
+            <p>Utför rätt PBL-algoritm. Om det inte är PBL 0 (solved) behöver du troligtvis justera U med ett AUF (Adjust U Face) drag efter algoritmen.</p>
+          </div>
+        </div>
+        <div class="flow-step" style="border-bottom:none">
+          <div class="flow-step-num" style="color:var(--col-green)">✓</div>
+          <div class="flow-step-content">
+            <strong>Kuben löst!</strong>
+            <p>Med OLL + PBL kan du lösa 2×2-kuben på under 5 sekunder med tillräcklig övning.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <span class="footer-copy">KUBGUIDE © 2025</span>
+  <nav class="footer-nav">
+    <a href="../index.html">Hem</a>
+    <a href="3x3.html">3×3</a>
+    <a href="2x2.html">2×2</a>
+    <a href="notation.html">Notation</a>
+  </nav>
+</footer>
+
+<script src="../js/cube3d.js"></script>
+<script src="../js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Hero cube — size:2 means 4 stickers per face (2×2 grid)
+  const c1 = document.getElementById('pageHeroCube2x2');
+  if (c1) {
+    const cube = new RubiksCube3D(c1, { size: 2, cellSize: 60, rotX: -0.45, rotY: 0.72 });
+    cube.startAutoRotate(0.006);
+  }
+  // Guide intro cube — also size:2
+  const c2 = document.getElementById('cube2x2_intro');
+  if (c2) {
+    const cube2 = new RubiksCube3D(c2, { size: 2, cellSize: 68, rotX: -0.45, rotY: 0.72 });
+    cube2.startAutoRotate(0.005);
+  }
+});
+</script>
+</body>
+</html>

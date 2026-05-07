@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KUBGUIDE — Lösa Rubik's Cube</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-brand">
+    <div class="brand-cube">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    KUBGUIDE
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Hem</a></li>
+    <li><a href="pages/3x3.html">3×3 Kub</a></li>
+    <li><a href="pages/2x2.html">2×2 Kub</a></li>
+    <li><a href="pages/notation.html">Notation</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Meny">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">
+      <span>●</span> Interaktiv kubtutorial
+    </div>
+    <h1 class="hero-title">
+      Lös din<br/>
+      <em>Rubik's</em><br/>
+      Cube
+    </h1>
+    <p class="hero-body">
+      Steg-för-steg guider för 2×2 och 3×3 — från nybörjarmetoden till avancerade OLL, PBL och CFOP-algoritmer. Interaktiva 3D-visuliasering och tydlig notationsförklaring.
+    </p>
+    <div class="hero-actions">
+      <a href="pages/3x3.html" class="btn btn-primary">▶ Börja med 3×3</a>
+      <a href="pages/2x2.html" class="btn btn-ghost">2×2 Pocket Cube</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-value">7</span>
+        <span class="stat-label">steg i nybörjarguiden</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">57</span>
+        <span class="stat-label">OLL-fall för 3×3</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">2×2</span>
+        <span class="stat-label">OLL + PBL täckt</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <canvas id="heroCube" width="360" height="360"></canvas>
+    <p class="drag-hint">dra för att rotera</p>
+  </div>
+</section>
+
+<!-- METHODS -->
+<section class="methods-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Lösningsmetoder</span>
+      <h2 class="section-title">Välj din guide</h2>
+      <p class="section-desc">Oavsett om du precis lärt dig hålla en kub eller vill lära dig speedcubing — vi har guiden för dig.</p>
+    </div>
+
+    <div class="methods-grid">
+      <a href="pages/3x3.html#nybörjare" class="method-card">
+        <div class="method-tag">3×3 · Nybörjare</div>
+        <div class="method-title">Lager-för-<br/>lager metoden</div>
+        <p class="method-desc">Den klassiska metoden där du löser kuben ett lager i taget uppifrån och ner. Perfekt startpunkt — du behöver bara lära dig 5 algoritmer.</p>
+        <div class="method-meta">
+          <span class="meta-chip">◆ 7 steg</span>
+          <span class="meta-chip">◆ 5 algoritmer</span>
+          <span class="meta-chip">◆ ~1h att lära</span>
+        </div>
+        <span class="method-arrow">↗</span>
+      </a>
+
+      <a href="pages/3x3.html#cfop" class="method-card" data-accent="blue">
+        <div class="method-tag">3×3 · Avancerat</div>
+        <div class="method-title">CFOP &<br/>Fridrich</div>
+        <p class="method-desc">Cross, F2L, OLL, PLL — världens vanligaste speedcubing-metod. Lär dig First Two Layers (F2L) och minska ditt dragantal drastiskt.</p>
+        <div class="method-meta">
+          <span class="meta-chip">◆ F2L</span>
+          <span class="meta-chip">◆ OLL</span>
+          <span class="meta-chip">◆ PLL (21 fall)</span>
+        </div>
+        <span class="method-arrow">↗</span>
+      </a>
+
+      <a href="pages/2x2.html#nybörjare" class="method-card" data-accent="green">
+        <div class="method-tag">2×2 · Nybörjare</div>
+        <div class="method-title">Pocket Cube<br/>Nybörjare</div>
+        <p class="method-desc">2×2-kuben har inga kanter eller mittenpjäser — bara 8 hörnpjäser. Lös den med Sune-algoritmen och en enkel permutationsalgoritm.</p>
+        <div class="method-meta">
+          <span class="meta-chip">◆ 4 steg</span>
+          <span class="meta-chip">◆ 2 algoritmer</span>
+          <span class="meta-chip">◆ ~30 min</span>
+        </div>
+        <span class="method-arrow">↗</span>
+      </a>
+
+      <a href="pages/2x2.html#oll" class="method-card" data-accent="red">
+        <div class="method-tag">2×2 · Avancerat</div>
+        <div class="method-title">OLL + PBL<br/>Metoden</div>
+        <p class="method-desc">Orientera alla hörn med 7 OLL-fall, sedan permuterar du båda lagren simultant med PBL (5 fall). Snabbare och effektivare än nybörjarmetoden.</p>
+        <div class="method-meta">
+          <span class="meta-chip">◆ 7 OLL-fall</span>
+          <span class="meta-chip">◆ 5 PBL-fall</span>
+          <span class="meta-chip">◆ Speedcubing</span>
+        </div>
+        <span class="method-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NOTATION QUICK REF -->
+<section class="notation-section">
+  <div class="container">
+    <div style="display:flex; align-items:end; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:2rem">
+      <div class="section-header" style="margin-bottom:0">
+        <span class="section-tag">Snabbreferens</span>
+        <h2 class="section-title" style="font-size:2.2rem">Notationen</h2>
+        <p class="section-desc" style="font-size:.9rem">Förstå notationen = du kan följa vilken algoritm som helst.</p>
+      </div>
+      <a href="pages/notation.html" class="btn btn-ghost btn-sm">Fullständig referens →</a>
+    </div>
+    <div class="notation-ticker">
+      <div class="tick-item"><span class="tick-move">R</span><span class="tick-desc">Höger<br/>medsols</span></div>
+      <div class="tick-item"><span class="tick-move">R'</span><span class="tick-desc">Höger<br/>motsols</span></div>
+      <div class="tick-item"><span class="tick-move">U</span><span class="tick-desc">Övre<br/>medsols</span></div>
+      <div class="tick-item"><span class="tick-move">U'</span><span class="tick-desc">Övre<br/>motsols</span></div>
+      <div class="tick-item"><span class="tick-move">F</span><span class="tick-desc">Fram<br/>medsols</span></div>
+      <div class="tick-item"><span class="tick-move">L</span><span class="tick-desc">Vänster<br/>medsols</span></div>
+      <div class="tick-item"><span class="tick-move">D</span><span class="tick-desc">Nedre<br/>medsols</span></div>
+      <div class="tick-item"><span class="tick-move">B</span><span class="tick-desc">Bak<br/>medsols</span></div>
+      <div class="tick-item"><span class="tick-move">R2</span><span class="tick-desc">180°<br/>rotation</span></div>
+      <div class="tick-item"><span class="tick-move">M</span><span class="tick-desc">Mitten-<br/>skivan</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-copy">KUBGUIDE © 2025</span>
+  <nav class="footer-nav">
+    <a href="index.html">Hem</a>
+    <a href="pages/3x3.html">3×3</a>
+    <a href="pages/2x2.html">2×2</a>
+    <a href="pages/notation.html">Notation</a>
+  </nav>
+</footer>
+
+<script src="js/cube3d.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const c = document.getElementById('heroCube');
+  if (!c) return;
+  const cube = new RubiksCube3D(c, { size: 3, cellSize: 44, rotX: -0.45, rotY: 0.72 });
+  cube.startAutoRotate(0.006);
+});
+</script>
+</body>
+</html>
